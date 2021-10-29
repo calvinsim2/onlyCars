@@ -8,7 +8,13 @@ router.get("/seed", async (req, res) => {
     console.log(seedCars);
     const seededCars = await Cars.create(seedCars);
     
-    res.send(seededCars);
+    res.json(seededCars);
+})
+
+router.get("/", async (req, res) => {
+    const allCars = await Cars.find({});
+    
+    res.json(allCars);
 })
 
 module.exports = router;
