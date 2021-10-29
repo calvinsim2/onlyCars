@@ -2,8 +2,8 @@ const seedCars = [
     {
         brand: "Honda",
         model: "Test",
-        original_owner: "617bad82445c58460f4cba1b",
-        rented_to_user: "617bad82445c58460f4cba1c",
+        original_owner: "617bba115821b9a8eb152626",
+        rented_to_user: "617bba115821b9a8eb152627",
         rental_rate: 500.10,
         rented_days: 0,
         mileage: 100,
@@ -16,8 +16,8 @@ const seedCars = [
     {
         brand: "Mitsubishi",
         model: "Test2",
-        original_owner: "617bad82445c58460f4cba1c",
-        rented_to_user: "617bad82445c58460f4cba1b",
+        original_owner: "617bba115821b9a8eb152627",
+        rented_to_user: "617bba115821b9a8eb152626",
         rental_rate: 300.10,
         rented_days: 5,
         mileage: 100,
