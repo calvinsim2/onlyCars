@@ -20,10 +20,21 @@ mongoose.connection.once("open", () => {
 
 app.use(express.static(path.join(__dirname, "./client/dist")));
 app.use(express.json());
+const usersController = require("./controllers/usersController")
+app.use("/api/users", usersController);
+const carsController = require("./controllers/carsController")
+app.use("/api/cars", carsController);
+
+
+
+//* ROUTES
 
 app.get("/", (req, res) => {
     res.json("Hello onlyCars fans :-)");
 })
+
+
+//* LISTEN
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
