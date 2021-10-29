@@ -24,6 +24,10 @@ const usersController = require("./controllers/usersController")
 app.use("/api/users", usersController);
 const carsController = require("./controllers/carsController")
 app.use("/api/cars", carsController);
+const carRentalEventsController = require("./controllers/carRentalEventsController")
+app.use("/api/carRentalEvents", carRentalEventsController);
+const reviewsController = require("./controllers/reviewsController")
+app.use("/api/reviews", reviewsController);
 
 
 
