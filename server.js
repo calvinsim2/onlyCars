@@ -2,10 +2,12 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
+const session = require("express-session");
 
 const app = express();
 const port = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI;
+const SECRET = process.env.SECRET;
 
 mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -14,7 +16,11 @@ mongoose.connection.once("open", () => {
     console.log("connected to mongo");
 });
 
-
+app.use(session({
+    secret: SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 
 //* MIDDLEWARE
 
@@ -28,6 +34,8 @@ const carRentalEventsController = require("./controllers/carRentalEventsControll
 app.use("/api/carRentalEvents", carRentalEventsController);
 const reviewsController = require("./controllers/reviewsController")
 app.use("/api/reviews", reviewsController);
+const sessionsController = require("./controllers/sessionsController")
+app.use("/api/sessions", sessionsController);
 
 
 
