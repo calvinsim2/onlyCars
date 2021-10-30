@@ -3,7 +3,7 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Box } from "@mui/system";
-import { Button, Card, CardActions, CardContent, CardMedia, Chip, LinearProgress, Typography } from "@mui/material";
+import { LinearProgress, Typography } from "@mui/material";
 import { CarCard } from "../globalComponents/CarCard";
 
 function AllCars() {
