@@ -12,7 +12,7 @@ const seedCars = [
         estimated_range: 500,
         manual: false,
         fuelType: "Petrol-Hybrid",
-        images: [ "inserturl" ],
+        images: [ "https://upload.wikimedia.org/wikipedia/commons/1/19/Brazilian_Honda_Civic_touring_2017_%28cropped%29.jpg" ],
         key_features: [ "pet-friendly" ],
     },
     {
@@ -28,7 +28,7 @@ const seedCars = [
         estimated_range: 550,
         manual: true,
         fuelType: "Petrol",
-        images: [ "inserturl" ],
+        images: [ "https://images.unsplash.com/photo-1561043855-7bfc2149641a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80" ],
         key_features: [ "NO PETS" ],
     },
 ]
