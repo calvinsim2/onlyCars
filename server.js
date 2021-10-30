@@ -34,6 +34,8 @@ const carRentalEventsController = require("./controllers/carRentalEventsControll
 app.use("/api/carRentalEvents", carRentalEventsController);
 const reviewsController = require("./controllers/reviewsController")
 app.use("/api/reviews", reviewsController);
+const sessionsController = require("./controllers/sessionsController")
+app.use("/api/sessions", sessionsController);
 
 
 
