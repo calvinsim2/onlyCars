@@ -9,8 +9,10 @@ const carsSchema = mongoose.Schema({
     rented_days: Number,
     mileage: Number,
     horsepower: Number,
+    fuel_consumption: Number,
+    estimated_range: Number,
     manual: Boolean,
-    Electric: Boolean,
+    fuelType: {type: String, required: true},
     images: [ String ],
     key_features: [ String ],
     reviews: [ {type: mongoose.Schema.Types.ObjectId, ref:"Reviews"} ]
