@@ -12,6 +12,7 @@ import AllCars from "./cars/allcars.jsx";
 import SpecificCar from "./cars/specificcar.jsx";
 import ListCars from "./cars/listcars.jsx";
 import EditCar from "./cars/editcar.jsx";
+import NavigationBar from "./general/appbar.jsx";
 // Import user routes
 import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
@@ -20,7 +21,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <h1>Placeholder for navbar!</h1>
+    <NavigationBar/>
       <BrowserRouter>
         <Switch>
           {/* Car Related Routes */}
