@@ -6,7 +6,7 @@ const session = require("express-session");
 
 const app = express();
 const port = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URI
 const SECRET = process.env.SECRET;
 
 mongoose.connect(MONGO_URI, {
