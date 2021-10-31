@@ -8,12 +8,30 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
-
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 
 function Main({ addCharfn }) {
   let make = ["Mazda", "Honda"]
   let model = ["Mx5", "Integra"]
+
+  const URL = "/api/cars/";
+
+  const [cars, setCars] = useState([]);
+  const [status, setStatus] = useState("pending");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setStatus("loading");
+      const res = await axios.get(URL);
+      console.log(res.data)
+      setCars(res.data);
+      setStatus("resolved");
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <Typography>Find Cars:</Typography>
