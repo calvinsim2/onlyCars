@@ -17,15 +17,17 @@ import NavigationBar from "./general/appbar.jsx";
 import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
 import "./App.css";
+import { Box } from "@mui/system";
 
 function App() {
   return (
     <>
     <NavigationBar/>
+    <Box sx={{width:"90vw", margin:"auto"}}>
       <BrowserRouter>
         <Switch>
           {/* Car Related Routes */}
-          <Route path="/cars">
+          <Route exact path="/cars">
             <AllCars />
           </Route>
           <Route path="/cars/new">
@@ -38,7 +40,7 @@ function App() {
             <SpecificCar />
           </Route>
           {/* User Related Routes */}
-          <Route path="/users">
+          <Route exact path="/users">
             <UserActivity />
           </Route>
           <Route path="/users/:id/edit">
@@ -63,6 +65,7 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
+      </Box>
     </>
   );
 }

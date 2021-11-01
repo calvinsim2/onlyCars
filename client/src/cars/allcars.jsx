@@ -40,7 +40,7 @@ function AllCars() {
 
   return (
     <>
-      <Box sx={{width:"80%", margin:"auto"}}>
+      
       <h1>Allcars.jsx (INDEX)</h1>
       <NavLink to={"/"}>
         <Typography variant="h5" >Back to Main Page</Typography>
@@ -48,11 +48,9 @@ function AllCars() {
         <h1>List of All Cars:</h1>
         <Box className="rowStyle">
           {fetchState === "complete" ? carsCardArrayRender : <LinearProgress /> }
-          <h1>{JSON.stringify(cars)}</h1>
         </Box>
 
       
-      </Box>
     </>
   );
 }
