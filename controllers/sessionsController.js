@@ -21,7 +21,7 @@ router.post("/new", async (req, res) => {
   if (passwordCorrectBool === true) {
     req.session.loginUser = thisUser;
     console.log("new session: ", req.session);
-    res.send("Success");
+    res.json(req.session.loginUser);
   } else return res.send("wrong password my dude.");
 });
 
