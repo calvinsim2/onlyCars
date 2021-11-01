@@ -1,36 +1,56 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Box } from "@mui/system";
-import { LinearProgress, Typography } from "@mui/material";import ImageGallery from 'react-image-gallery';
-
+import { Divider, LinearProgress, Typography } from "@mui/material";import ImageGallery from 'react-image-gallery';
 
 
 const SpecificCar = () => {
+  const history = useHistory();
+  
   let carId = useParams()?.id;
-  const URL = `/api/cars/${carId}`
-
+  const URL = `/api/cars/${carId}`;
+  
+  const [fetchState, setFetchState] = useState("pending");
+  const [thisCar, setThisCar] = useState({})
+  const isSubscribed = useRef(true);
+  
   useEffect(() => {
     const fetchThisCarInfo = async () => {
-      const data = await axios.get(URL)?.data;
-      console.log(data);
+      try {
+        setFetchState("loading");
+        const res = await axios.get(URL);
+        const data = res.data;
+        console.log(data);
+        if (!isSubscribed) {
+          console.log("subscription cancelled because of component unmount");
+          return null;
+        }
+        setThisCar(data); 
+        setFetchState("complete");
+      } 
+      catch (error) {
+        setFetchState("error");
+        console.log("error situation", error);
+        history.replace("/");
+      }
     }
-
     fetchThisCarInfo();
+    return () => {
+      isSubscribed.current = false;
+    }
   }, [])
 
-  const images = [
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-    },
-    {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-    },
-  ];
+  const carImages = [];
+  thisCar?.images?.forEach((image) => {carImages.push({original: image})});
+  const brand = thisCar?.brand;
+  const model = thisCar?.model;
+  const owner = thisCar?.original_owner;
+  const ownerAvatar = owner?.display_picture;
+  const ownerName = owner?.displayname;
+  
+  
   return (
     <>
       <h1>specificcar.jsx</h1>
@@ -38,40 +58,45 @@ const SpecificCar = () => {
         <p>Back to All Cars Page</p>
       </NavLink>
       <h1>{carId}</h1>
-      <Box className="rowStyle">
-        <Box width="50vw"  sx={{ml:"0.5em", mr:"0.5em"}}>
-          <h1>testleft</h1>
+      { fetchState === "complete" ?
+        <Box className="rowStyle">
+            {/* //! LEFT PANEL */}
+          <Box width="50vw"  sx={{ml:"0.5em", mr:"0.5em"}}>
+            <h1>testleft</h1>
+            <h1>{brand} {model}</h1>
+            {!!thisCar?.images?.length ? <ImageGallery items={carImages} /> : Null }
+            
+            <Box>
+              <img className="user_avatar" src={ownerAvatar} alt="user_avatar" />
+              <h3 style={{display:"inline"}}>{ownerName}</h3>
+            </Box>
+            {/* description about car | hosted by: user */}
 
-          <ImageGallery items={images} />
-        
-          {/* //! LEFT PANEL */}
-          {/* image gallery */}
-          {/* user avatar */}
-          {/* brand and model */}
-          {/* description about car | hosted by: user */}
+            {/* about car */}
 
-          {/* about car */}
+            {/* little tags with car info? */}
 
-          {/* little tags with car info? */}
+            {/* key features of car */}
 
-          {/* key features of car */}
+            {/* Rules? */}
 
-          {/* Rules? */}
-
-          {/* Mileage */}
-        </Box>
-        <Box width="30vw" sx={{ml:"0.5em", mr:"0.5em"}}>
-          <h1>testright</h1>
-          {/* //! RIGHT PANEL */}
-          {/* BOOK BRAND AND MODEL */}
+            {/* Mileage */}
+          </Box>
           
-          {/* pickup date & time */}
-          {/* dropoff date & time */}
 
-          {/* BOOK NOW BUTTON */}
+          <Box width="30vw" sx={{ml:"0.5em", mr:"0.5em"}}>
+            <h1>testright</h1>
+            {/* //! RIGHT PANEL */}
+            {/* BOOK BRAND AND MODEL */}
+            
+            {/* pickup date & time */}
+            {/* dropoff date & time */}
+
+            {/* BOOK NOW BUTTON */}
+          </Box>
         </Box>
-      </Box>
-
+      : <LinearProgress/>
+      }
 
 
       

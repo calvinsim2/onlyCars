@@ -25,7 +25,9 @@ router.get("/", async (req, res) => {
 //! SHOW
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const thisCar = await Cars.findById(id);
+    // console.log("id", id);
+    const thisCar = await Cars.findById(id).populate("original_owner");
+    // console.log("thisCar", thisCar);
     res.json(thisCar);
   })
 

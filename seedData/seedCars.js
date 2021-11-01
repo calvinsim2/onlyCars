@@ -2,8 +2,8 @@ const seedCars = [
     {
         brand: "Honda",
         model: "Test",
-        original_owner: "617bba115821b9a8eb152626",
-        rented_to_user: "617bba115821b9a8eb152627",
+        original_owner: "617f9a1b7f34d4e1153b706a",
+        rented_to_user: "617f9a1b7f34d4e1153b706b",
         rental_rate: 500.10,
         rented_days: 0,
         mileage: 100,
@@ -18,8 +18,8 @@ const seedCars = [
     {
         brand: "Mitsubishi",
         model: "Test2",
-        original_owner: "617bba115821b9a8eb152627",
-        rented_to_user: "617bba115821b9a8eb152626",
+        original_owner: "617f9a1b7f34d4e1153b706b",
+        rented_to_user: "617f9a1b7f34d4e1153b706a",
         rental_rate: 300.10,
         rented_days: 5,
         mileage: 100,
@@ -30,6 +30,20 @@ const seedCars = [
         fuelType: "Petrol",
         images: [ "https://images.unsplash.com/photo-1561043855-7bfc2149641a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80" ],
         key_features: [ "NO PETS" ],
+    },
+    {
+        brand: "Wallmart",
+        model: "Wagon",
+        original_owner: "617f9a1b7f34d4e1153b706b",
+        rental_rate: 30.10,
+        mileage: 10,
+        horsepower: 10,
+        fuel_consumption: 0,
+        estimated_range: 550,
+        manual: true,
+        fuelType: "Others",
+        images: [ "https://static.turbosquid.com/Preview/2019/02/19__05_22_17/_wooden_wagon1.jpg6351A698-75A5-4E8F-B6E7-82EC128304D0Zoom.jpg" ],
+        key_features: [ "Eco-friendly" ],
     },
 ]
 
