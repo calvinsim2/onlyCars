@@ -20,6 +20,7 @@
 .user_avatar {
   border-radius: 50%;
   width: 8vw;
+}
   
 .login-page,
 .signup-page {
@@ -28,7 +29,6 @@
   align-items: center;
   justify-content: space-around;
 }
-
 .login-form,
 .signup-form {
   display: flex;
@@ -36,8 +36,7 @@
   align-items: center;
   justify-content: space-around;
 }
-
 .login,
 .signup {
-  background: #f4f4f4;
+  background: #F4F4F4;
 }
