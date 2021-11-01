@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const seedCars = require("../seedData/seedCars");
 const Cars = require("../models/cars");
-const CanRent = require("../models/carRentalEvents")
+
 
 //! SEED
 
@@ -17,7 +17,7 @@ router.get("/seed", async (req, res) => {
 //! INDEX
 
 router.get("/", async (req, res) => {
-    const allCars = await CanRent.find({});
+    const allCars = await Cars.find({});
     
     res.json(allCars);
 })
@@ -26,12 +26,12 @@ router.get("/", async (req, res) => {
 //! SHOW
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const car = await CanRent.findById(id);
+    const car = await Cars.findById(id);
     res.json(car);
   })
 
 
-//! CREATE not working
+//! CREATE 
 router.post("/new", async (req, res) => {
     req.body.key_features = req.body.key_features.split(",");
     console.log("data", req.body);
