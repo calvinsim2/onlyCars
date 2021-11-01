@@ -1,6 +1,10 @@
 import React from "react";
 import { NavLink, Redirect } from "react-router-dom";
 import { useState } from "react";
+import "../App.css";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 function SignUp() {
   const URL = "/api/users/new";
@@ -48,43 +52,58 @@ function SignUp() {
   };
 
   const handleSubmit = (event) => {
+    console.log("CLICKED!");
     event.preventDefault();
     // const title = event.target.title.value;
     // console.log("title", title)
 
     CreateUser();
   };
+
+  // mui related.
+  const wordStyle = {
+    color: "primary.main",
+  };
+
   if (status === "Success") {
     console.log("This is status: ", status);
     return <Redirect to={"/login"} />;
   } else {
     return (
-      <>
-        <h1>这个是 Sign Up Page!</h1>
+      <div className="signup-page">
+        <Typography variant="h3" sx={{ ...wordStyle }}>
+          这个是 Sign Up Page!
+        </Typography>
         <NavLink to={"/"}>
           <p>Back to Main Page</p>
         </NavLink>
-        <div className="login">
-          <form onSubmit={handleSubmit}>
-            <input
+        <div className="signup">
+          <form className="signup-form" onSubmit={handleSubmit}>
+            <TextField
               name="username"
-              placeholder="Desired username"
+              size="small"
+              label="Enter Username"
+              variant="outlined"
               onChange={typeName}
             />
-            <input
+            <TextField
               name="password"
-              placeholder="Desired Password"
+              size="small"
+              label="Desired Password"
+              variant="outlined"
               onChange={typePassword}
             />
-            <input
+            <TextField
               name="displayname"
-              placeholder="Display Name"
+              size="small"
+              label="Desired Name"
+              variant="outlined"
               onChange={typeDisplayName}
             />
-            <button>Create Account!</button>
+            <Button type="submit">Create Account</Button>
           </form>
         </div>
-      </>
+      </div>
     );
   }
 }
