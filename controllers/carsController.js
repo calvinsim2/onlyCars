@@ -32,7 +32,8 @@ router.get("/:id", async (req, res) => {
 
 
 //! CREATE not working
-router.post("/", async (req, res) => {
+router.post("/new", async (req, res) => {
+    req.body.key_features = req.body.key_features.split(",");
     console.log("data", req.body);
     const cars = await Cars.create(req.body);
     res.json(cars);
@@ -46,6 +47,7 @@ router.post("/", async (req, res) => {
 //! UPDATE
 router.put("/:id", async (req, res) => {
     const { id } = req.params; 
+    req.body.key_features = req.body.key_features.split(",");
     const car = await Cars.findByIdAndUpdate(id, req.body)
     res.json(car)
   })
