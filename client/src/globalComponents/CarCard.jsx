@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from "@mui/material";
 import { Box } from '@mui/system';
+import { NavLink } from 'react-router-dom';
 
 export const CarCard = ({carInfo}) => {
     return (
@@ -24,7 +25,9 @@ export const CarCard = ({carInfo}) => {
             </Box>
             </CardContent>
             <CardActions>
-            <Button size="small">Show More</Button>
+                <NavLink to={`/cars/${carInfo?._id}`}>
+                    <Button size="small">Show More</Button>
+                </NavLink>
             </CardActions>
         </Card>
     )

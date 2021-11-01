@@ -27,10 +27,11 @@ router.get("/", async (req, res) => {
 //! SHOW
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const car = await Cars.findById(id);
-    res.json(car);
+    // console.log("id", id);
+    const thisCar = await Cars.findById(id).populate("original_owner");
+    // console.log("thisCar", thisCar);
+    res.json(thisCar);
   })
-
 
 //! CREATE 
 router.post("/new", async (req, res) => {
