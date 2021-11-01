@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link } from '@mui/material';
 
 function NavigationBar() {
   return (
@@ -15,8 +16,8 @@ function NavigationBar() {
               onlyCars
               <Button color="inherit">About</Button>
             </Typography>
-            <Button color="inherit">Not a user? Sign up here!</Button>
-            <Button color="inherit">Login</Button>
+            <Button component={Link} href="/signup" color="inherit">Not a user? Sign up here!</Button>
+            <Button component={Link} href="/login" color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>

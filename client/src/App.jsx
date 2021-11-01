@@ -12,7 +12,9 @@ import AllCars from "./cars/allcars.jsx";
 import SpecificCar from "./cars/specificcar.jsx";
 import ListCars from "./cars/listcars.jsx";
 import EditCar from "./cars/editcar.jsx";
+import NewCar from "./cars/newcar.jsx";
 import NavigationBar from "./general/appbar.jsx";
+
 // Import user routes
 import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
@@ -25,8 +27,11 @@ function App() {
       <BrowserRouter>
         <Switch>
           {/* Car Related Routes */}
-          <Route path="/cars">
+          <Route exact path="/cars">
             <AllCars />
+          </Route>
+          <Route path="/cars/createcar">
+            <NewCar />
           </Route>
           <Route path="/cars/new">
             <ListCars />
