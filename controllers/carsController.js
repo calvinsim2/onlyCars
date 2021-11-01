@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const seedCars = require("../seedData/seedCars");
 const Cars = require("../models/cars");
+const Users = require("../models/users")
 
 
 //! SEED
@@ -34,8 +35,15 @@ router.get("/:id", async (req, res) => {
 //! CREATE 
 router.post("/new", async (req, res) => {
     req.body.key_features = req.body.key_features.split(",");
-    console.log("data", req.body);
+    // console.log("data", req.body);
+    // console.log("original owner ", req.body.original_owner)
+    // console.log("car_id ",req.body._id )
+    const id = req.body.original_owner
     const cars = await Cars.create(req.body);
+    const carID = await Cars.find(req.body, "_id");
+    console.log("car id", carID);
+    const user = await Users.findByIdAndUpdate(id, {$push:{cars_for_rent: carID }});
+    console.log(user);
     res.json(cars);
   });
 
