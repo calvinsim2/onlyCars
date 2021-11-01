@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link } from '@mui/material';
 
 function NavigationBar() {
   return (
@@ -13,10 +14,10 @@ function NavigationBar() {
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               onlyCars
-              <Button color="inherit">About</Button>
+              <Button component={Link} href="/about" color="inherit">About</Button>
             </Typography>
-            <Button color="inherit">Not a user? Sign up here!</Button>
-            <Button color="inherit">Login</Button>
+            <Button component={Link} href="/signup" color="inherit">Not a user? Sign up here!</Button>
+            <Button component={Link} href="/login" color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
       </Box>
