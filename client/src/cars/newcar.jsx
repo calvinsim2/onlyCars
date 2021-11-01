@@ -7,7 +7,7 @@ import { TextField } from '@mui/material';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 
-const URL = "/api/cars/";
+const URL = "/api/cars/new";
 
 function NewCar({ addCar }) {
 
@@ -52,6 +52,11 @@ function NewCar({ addCar }) {
         fuelType: yup
             .string('Enter the Fuel Type')
             .required('Fuel type is required'),
+        images: yup
+            .string('Is it a manual car?'),
+        key_features: yup
+            .string('Is it a manual car?'),
+
     });
 
     const formik = useFormik({
@@ -66,7 +71,9 @@ function NewCar({ addCar }) {
             fuel_consumption: 11,
             estimated_range: 420,
             manual: false,
-            fuelType: 'petrol'
+            fuelType: 'petrol',
+            images: ["url", "url"],
+            key_features: ["bla", "bleh"],
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -145,7 +152,7 @@ function NewCar({ addCar }) {
                     error={formik.touched.mileage && Boolean(formik.errors.mileage)}
                     helperText={formik.touched.mileage && formik.errors.mileage}
                 />
-                 <TextField
+                <TextField
                     fullWidth
                     id="horsepower"
                     name="horsepower"
@@ -167,7 +174,7 @@ function NewCar({ addCar }) {
                     error={formik.touched.fuel_consumption && Boolean(formik.errors.fuel_consumption)}
                     helperText={formik.touched.fuel_consumption && formik.errors.fuel_consumption}
                 />
-                  <TextField
+                <TextField
                     fullWidth
                     id="estimated_range"
                     name="estimated_range"
@@ -178,7 +185,7 @@ function NewCar({ addCar }) {
                     error={formik.touched.estimated_range && Boolean(formik.errors.estimated_range)}
                     helperText={formik.touched.estimated_range && formik.errors.estimated_range}
                 />
-                 <TextField
+                <TextField
                     fullWidth
                     id="manual"
                     name="manual"
@@ -199,6 +206,28 @@ function NewCar({ addCar }) {
                     onChange={formik.handleChange}
                     error={formik.touched.fuelType && Boolean(formik.errors.fuelType)}
                     helperText={formik.touched.fuelType && formik.errors.fuelType}
+                />
+                <TextField
+                    fullWidth
+                    id="images"
+                    name="images"
+                    label="images"
+                    type="string"
+                    value={formik.values.images}
+                    onChange={formik.handleChange}
+                    error={formik.touched.images && Boolean(formik.errors.images)}
+                    helperText={formik.touched.images && formik.errors.images}
+                />
+                <TextField
+                    fullWidth
+                    id="key_features"
+                    name="key_features"
+                    label="key_features"
+                    type="string"
+                    value={formik.values.key_features}
+                    onChange={formik.handleChange}
+                    error={formik.touched.key_features && Boolean(formik.errors.key_features)}
+                    helperText={formik.touched.key_features && formik.errors.key_features}
                 />
                 <Button color="primary" variant="contained" fullWidth type="submit">
                     Submit

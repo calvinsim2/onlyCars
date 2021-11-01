@@ -14,7 +14,7 @@ function NavigationBar() {
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               onlyCars
-              <Button color="inherit">About</Button>
+              <Button component={Link} href="/about" color="inherit">About</Button>
             </Typography>
             <Button component={Link} href="/signup" color="inherit">Not a user? Sign up here!</Button>
             <Button component={Link} href="/login" color="inherit">Login</Button>
