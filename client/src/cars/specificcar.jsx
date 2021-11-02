@@ -3,7 +3,11 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState, useRef } from "react";
 import { Box } from "@mui/system";
-import { Chip, LinearProgress } from "@mui/material";import ImageGallery from 'react-image-gallery';
+import { Chip, LinearProgress } from "@mui/material";
+import ImageGallery from 'react-image-gallery';
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
+
 
 
 const SpecificCar = () => {
@@ -15,6 +19,7 @@ const SpecificCar = () => {
   const [fetchState, setFetchState] = useState("pending");
   const [thisCar, setThisCar] = useState({})
   const isSubscribed = useRef(true);
+  const [calDate, setCalDate] = useState(new Date());
   
   useEffect(() => {
     const fetchThisCarInfo = async () => {
@@ -108,7 +113,11 @@ const SpecificCar = () => {
             <h1>testright</h1>
             {/* //! RIGHT PANEL */}
             {/* BOOK BRAND AND MODEL */}
-            
+            <Calendar
+            onChange={setCalDate}
+            showWeekNumbers
+            value={calDate}
+          />
             
             {/* pickup date & time */}
             {/* dropoff date & time */}
