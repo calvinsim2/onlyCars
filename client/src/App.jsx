@@ -1,6 +1,8 @@
 import { useState } from "react";
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { createContext } from "react";
+
 // Import general routes
 import Main from "./general/mainpage.jsx";
 import About from "./general/about.jsx";
@@ -21,9 +23,64 @@ import UserEdit from "./users/useredit.jsx";
 import "./App.css";
 import { Box } from "@mui/system";
 
+// Context
+export const DataContext = createContext();
+
 function App() {
+  // stores current logged in User!
+  const [user, setUser] = useState();
+  console.log("PAGE RELOADED!");
+  //
+
   return (
     <>
+<<<<<<< HEAD
+      <DataContext.Provider value={{ user, setUser }}>
+        <BrowserRouter>
+          <NavigationBar />
+
+          <Switch>
+            {/* Car Related Routes */}
+            <Route exact path="/cars">
+              <AllCars />
+            </Route>
+            <Route path="/cars/new">
+              <NewCar />
+            </Route>
+            <Route path="/cars/:id/edit">
+              <EditCar />
+            </Route>
+            <Route path="/cars/:id">
+              <SpecificCar />
+            </Route>
+            {/* User Related Routes */}
+            <Route path="/users">
+              <UserActivity />
+            </Route>
+            <Route path="/users/:id/edit">
+              <UserEdit />
+            </Route>
+            {/* General Routes */}
+
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/payment">
+              <Payment />
+            </Route>
+            <Route exact path="/">
+              <Main />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </DataContext.Provider>
+=======
     <NavigationBar/>
     <Box sx={{width:"90vw", margin:"auto"}}>
       <BrowserRouter>
@@ -71,6 +128,7 @@ function App() {
         </Switch>
       </BrowserRouter>
       </Box>
+>>>>>>> main
     </>
   );
 }

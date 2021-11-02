@@ -27,8 +27,8 @@ router.post("/new", async (req, res) => {
 
 router.delete("/", (req, res) => {
   req.session.destroy(() => {
-    res.redirect("/");
-    // res.send("session deleted");
+    res.send("session deleted");
+    // res.redirect("/");
   });
 });
 
