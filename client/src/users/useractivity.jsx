@@ -1,6 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { React, useContext } from "react";
+import { NavLink, Redirect } from "react-router-dom";
+import { DataContext } from "../App";
+
+import axios from "axios";
 
 function UserActivity() {
+  const { user } = useContext(DataContext);
+
+  if (!user) {
+    return <Redirect to="/login" />;
+  }
   return (
     <>
       <h1>这个是 UserActivity Page!</h1>
