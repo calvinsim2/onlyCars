@@ -3,10 +3,11 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState, useRef } from "react";
 import { Box } from "@mui/system";
-import { Chip, LinearProgress } from "@mui/material";
+import { Button, Chip, Divider, LinearProgress, Typography } from "@mui/material";
 import ImageGallery from 'react-image-gallery';
-import Calendar from "react-calendar";
-import 'react-calendar/dist/Calendar.css';
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker, { utils } from 'react-modern-calendar-datepicker';
+import { seedTime } from "../seeds/seedTime";
 
 
 
@@ -19,7 +20,12 @@ const SpecificCar = () => {
   const [fetchState, setFetchState] = useState("pending");
   const [thisCar, setThisCar] = useState({})
   const isSubscribed = useRef(true);
-  const [calDate, setCalDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(
+    {
+      from: null,
+      to: null,
+    });
+  const [selectedTime, setSelectedTime] = useState("09:30"); 
   
   useEffect(() => {
     const fetchThisCarInfo = async () => {
@@ -63,14 +69,28 @@ const SpecificCar = () => {
   const ownerAvatar = owner?.display_picture;
   const ownerName = owner?.displayname;
   
-  
+  const selectChange = (event) => {
+    console.log("changed");
+    const time = event.target.value;
+    setSelectedTime(time);
+  }
+
+  const handleBook = () => {
+    if (!(!!selectedDay.from)) alert("Please Select a date.");
+    const fromDate = `${selectedDay.from?.month} ${selectedDay.from?.day} ${selectedDay.from?.year}`;
+    const toDate = `${selectedDay.to?.month} ${selectedDay.to?.day} ${selectedDay.to?.year}`;
+    const dateFrom = new Date(`${fromDate} ${selectedTime}`);
+    // console.log (dateFrom);
+    const dateTo = new Date(`${toDate} ${selectedTime}`);
+    // console.log(dateTo);
+
+  }
   return (
     <>
       <h1>specificcar.jsx</h1>
       <NavLink to={"/cars"}>
-        <p>Back to All Cars Page</p>
+        <Button variant="contained">Back to All Cars Page</Button>
       </NavLink>
-      <h1>{carId}</h1>
       { fetchState === "complete" ?
         <Box className="rowStyle">
             {/* //! LEFT PANEL */}
@@ -112,17 +132,38 @@ const SpecificCar = () => {
           <Box width="30vw" sx={{ml:"0.5em", mr:"0.5em"}}>
             <h1>testright</h1>
             {/* //! RIGHT PANEL */}
-            {/* BOOK BRAND AND MODEL */}
-            <Calendar
-            onChange={setCalDate}
-            showWeekNumbers
-            value={calDate}
-          />
-            
-            {/* pickup date & time */}
-            {/* dropoff date & time */}
-
-            {/* BOOK NOW BUTTON */}
+            <h1>Rent this Car:</h1>
+            {/* <button onClick={()=>console.log(selectedDay)}>log day</button> */}
+            <Box className="colStyle" sx={{margin:"2em", alignItems:"center"}}>
+              <h5>On these dates: </h5>
+                <DatePicker value={selectedDay} onChange={setSelectedDay} inputPlaceholder="Select a date" shouldHighlightWeekends minimumDate={utils().getToday() } renderFooter={() => (
+                <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem 2rem' }}>
+                  <button type="button" onClick={() => {
+                      setSelectedDay({
+                        from: null,
+                        to: null,
+                      })
+                    }} style={{
+                      border: '#0fbcf9',
+                      color: 'white',
+                      backgroundColor: "black",
+                      borderRadius: '0.5rem',
+                      padding: '1rem 2rem',
+                    }}
+                  >Reset</button>
+                </div>
+              )}/>
+              <Typography variant="caption" display="block">You can select a range of dates.</Typography>
+              <h5>Starting at: </h5>
+              <select className="DatePicker__input" value={selectedTime} onChange={selectChange}>
+                {seedTime.map((timeString) => {
+                  return (
+                    <option key={`seedTime${timeString}`} value={timeString}>{timeString}</option>
+                  )
+                })}
+              </select>
+              <Button onClick={handleBook} sx={{mt:"1em"}} variant="contained">Book Now!</Button>
+            </Box>
           </Box>
         </Box>
       : <LinearProgress/>

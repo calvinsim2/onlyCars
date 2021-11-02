@@ -3,7 +3,7 @@ import axios from "axios";
 import { NavLink, useHistory } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Box } from "@mui/system";
-import { LinearProgress, Typography } from "@mui/material";
+import { Button, LinearProgress, Typography } from "@mui/material";
 import { CarCard } from "../globalComponents/CarCard";
 
 function AllCars() {
@@ -50,7 +50,7 @@ function AllCars() {
       
       <h1>Allcars.jsx (INDEX)</h1>
       <NavLink to={"/"}>
-        <Typography variant="h5" >Back to Main Page</Typography>
+      <Button variant="contained">Back to Main Page</Button>
       </NavLink>
         <h1>List of All Cars:</h1>
         <Box className="rowStyle">
