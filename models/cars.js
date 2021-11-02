@@ -5,6 +5,7 @@ const carsSchema = mongoose.Schema({
     model: {type: String, required: true, trim: true},
     original_owner: {type: mongoose.Schema.Types.ObjectId, ref:"Users", required: true},
     rented_to_user: {type: mongoose.Schema.Types.ObjectId, ref:"Users"},
+    description: {type: String, trim: true},
     rental_rate: {type: Number, required: true, min:0},
     rented_days: Number,
     mileage: Number,
