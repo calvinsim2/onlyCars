@@ -3,7 +3,7 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState, useRef } from "react";
 import { Box } from "@mui/system";
-import { Avatar, Chip, Divider, LinearProgress, Typography } from "@mui/material";import ImageGallery from 'react-image-gallery';
+import { Chip, LinearProgress } from "@mui/material";import ImageGallery from 'react-image-gallery';
 
 
 const SpecificCar = () => {
@@ -108,6 +108,7 @@ const SpecificCar = () => {
             <h1>testright</h1>
             {/* //! RIGHT PANEL */}
             {/* BOOK BRAND AND MODEL */}
+            
             
             {/* pickup date & time */}
             {/* dropoff date & time */}
