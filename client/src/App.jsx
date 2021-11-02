@@ -45,7 +45,7 @@ function App() {
             <SpecificCar />
           </Route>
           {/* User Related Routes */}
-          <Route exact path="/users">
+          <Route exact path="/users/:id">
             <UserActivity />
           </Route>
           <Route path="/users/:id/edit">
