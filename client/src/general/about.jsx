@@ -1,12 +1,25 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import Typography from "@mui/material/Typography";
+import { DataContext } from "../App";
 
 function About() {
+  const { user } = useContext(DataContext);
+
+  // mui related.
+  const wordStyle = {
+    color: "primary.main",
+  };
+
   return (
     <>
       <h1>这个是 About Page!</h1>
       <NavLink to={"/"}>
         <p>Back to Main Page</p>
       </NavLink>
+      <Typography variant="h5" sx={{ ...wordStyle }}>
+        Hello {user?.username}!
+      </Typography>
       <div className="about">
         <p>
           Welcome to onlyCars, ever thought of owning a car but COE in Singapore
