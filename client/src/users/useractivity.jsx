@@ -67,15 +67,12 @@ return (
         </Typography>
       </Grid>
       <h2>Cars For Rent:</h2>
-      <Grid item container xs={12}>
+      <Grid item container xs={12} spacing={3}>
         {renderCarsForRent()}
       </Grid>
     </Grid>
     <NavLink to={"/cars/new"}>
       <p>Want to list a new car?</p>
-    </NavLink>
-    <NavLink to={"/cars/:id/edit"}>
-      <p>Amend Listed Car Details</p>
     </NavLink>
     <div className="useractivity"></div>
   </>
