@@ -21,6 +21,7 @@ import NavigationBar from "./general/appbar.jsx";
 import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
 import "./App.css";
+import { Box } from "@mui/system";
 
 // Context
 export const DataContext = createContext();
@@ -33,6 +34,7 @@ function App() {
 
   return (
     <>
+<<<<<<< HEAD
       <DataContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <NavigationBar />
@@ -78,6 +80,55 @@ function App() {
           </Switch>
         </BrowserRouter>
       </DataContext.Provider>
+=======
+    <NavigationBar/>
+    <Box sx={{width:"90vw", margin:"auto"}}>
+      <BrowserRouter>
+        <Switch>
+          {/* Car Related Routes */}
+          <Route exact path="/cars">
+            <AllCars />
+          </Route>
+          <Route path="/cars/new">
+            <NewCar />
+          </Route>
+          <Route path="/cars/new">
+            <ListCars />
+          </Route>
+          <Route path="/cars/:id/edit">
+            <EditCar />
+          </Route>
+          <Route path="/cars/:id">
+            <SpecificCar />
+          </Route>
+          {/* User Related Routes */}
+          <Route exact path="/users">
+            <UserActivity />
+          </Route>
+          <Route path="/users/:id/edit">
+            <UserEdit />
+          </Route>
+          {/* General Routes */}
+
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/payment">
+            <Payment />
+          </Route>
+          <Route exact path="/">
+            <Main />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+      </Box>
+>>>>>>> main
     </>
   );
 }
