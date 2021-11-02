@@ -269,7 +269,10 @@ function EditCar() {
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
-     
+
+           <NavLink to={`/users/${car.original_owner?._id}/`}>
+              <Button>Cancel</Button>
+            </NavLink>
       </form>
     </Grid>
   );

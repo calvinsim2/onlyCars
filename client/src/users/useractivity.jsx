@@ -39,7 +39,9 @@ function UserActivity() {
               {car.brand} {car.model}
             </CardContent>
             <CardActions>
-              <Button sx={{ mr: 0 }}>Edit</Button>
+              <NavLink to={`/cars/${car?._id}/edit`}>
+              <Button>Edit</Button>
+              </NavLink>
             </CardActions>
           </Card>
           </Grid >
