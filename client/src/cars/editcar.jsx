@@ -1,75 +1,114 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
+import { Checkbox } from "@mui/material";
 import { Grid } from '@mui/material';
+import axios from "axios";
 
 
 function EditCar({ editCar }) {
+
+  
   const params = useParams()
   const URL = `/api/cars/${params.id}`;
-  
-    const updateCar = async (info) => {
-        const res = await fetch(URL, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(info)
-        });
-        const data = await res.json();
-        console.log(data);
-        editCar(data);
-    }
 
-    const validationSchema = yup.object({
-        brand: yup
-            .string('Enter Car Brand')
-            .required('Brand is required'),
-        model: yup
-            .string('Enter your model')
-            .required('Model is required'),
-        original_owner: yup
-            .string('Enter the original owner')
-            .required('Owner is required'),
-        rental_rate: yup
-            .string('Enter the rental rate')
-            .required('Rental rate is required'),
-        rented_days: yup
-            .string('Enter the rented days'),
-        mileage: yup
-            .number('What is the mileage'),
-        horsepower: yup
-            .string('Enter the horsepower'),
-        fuel_consumption: yup
-            .number('Enter the fuel consumption'),
-        estimated_range: yup
-            .number('Enter the range'),
-        manual: yup
-            .boolean('Is it a manual car?'),
-        fuelType: yup
-            .string('Enter the Fuel Type')
-            .required('Fuel type is required'),
+  const [car, setCar] = useState(
+  {
+    brand: "",
+    model: "",
+    original_owner: "",
+    rental_rate: "",
+    rented_days: "",
+    mileage: "",
+    horsepower: "",
+    fuel_consumption: "",
+    estimated_range: "",
+    manual: false,
+    fuelType: "",
+    images: ["url"],
+    key_features: ["features"],
+}
+);
+ 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await axios.get(URL);
+      setCar(res.data);
+    };
+    fetchData();
+  }, []);
+  console.log("Working on this car ", car)
+  console.log(car.manual);
+
+
+
+
+  const updateCar = async (info) => {
+    const res = await fetch(URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info)
     });
-
-    const formik = useFormik({
-        initialValues: {
-            brand: 'Mazda',
-            model: 'Mx5',
-            original_owner: '617bba115821b9a8eb152627',
-            rental_rate: 200,
-            rented_days: 150,
-            mileage: 111111,
-            horsepower: 130,
-            fuel_consumption: 11,
-            estimated_range: 420,
-            manual: false,
-            fuelType: 'petrol',
-            images: ["url", "url"],
-            key_features: ["bla", "bleh"],
+    const data = await res.json();
+    console.log(data);
+    editCar(data);
+  }
+  
+  const validationSchema = yup.object({
+    brand: yup
+    .string('Enter Car Brand')
+    .required('Brand is required'),
+    model: yup
+    .string('Enter your model')
+    .required('Model is required'),
+    original_owner: yup
+    .string('Enter the original owner')
+    .required('Owner is required'),
+    rental_rate: yup
+    .string('Enter the rental rate')
+    .required('Rental rate is required'),
+    rented_days: yup
+    .string('Enter the rented days'),
+    mileage: yup
+    .number('What is the mileage'),
+    horsepower: yup
+    .string('Enter the horsepower'),
+    fuel_consumption: yup
+    .number('Enter the fuel consumption'),
+    estimated_range: yup
+    .number('Enter the range'),
+    manual: yup
+    .boolean('Is it a manual car?'),
+    fuelType: yup
+    .string('Enter the Fuel Type')
+    .required('Fuel type is required'),
+  });
+ 
+  
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+            brand: car.brand,
+            model: car.model,
+            original_owner: car.original_owner?._id,
+            rental_rate: car.rental_rate,
+            rented_days: car.rented_days,
+            mileage: car.mileage,
+            horsepower: car.horsepower,
+            fuel_consumption: car.fuel_consumption,
+            estimated_range: car.estimated_range,
+            manual: car.manual,
+            fuelType: car.fuelType,
+            images: car.images,
+            key_features: car.key_features,
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -77,8 +116,7 @@ function EditCar({ editCar }) {
         },
     });
 
-
-
+  
     return (
         <Grid container>
             <form onSubmit={formik.handleSubmit}>
@@ -108,8 +146,9 @@ function EditCar({ editCar }) {
                     fullWidth
                     id="original_owner"
                     name="original_owner"
-                    label="Original Owner"
+                    // label="Original Owner"
                     type="string"
+                    disabled={true}
                     value={formik.values.original_owner}
                     onChange={formik.handleChange}
                     error={formik.touched.original_owner && Boolean(formik.errors.original_owner)}
@@ -181,13 +220,13 @@ function EditCar({ editCar }) {
                     error={formik.touched.estimated_range && Boolean(formik.errors.estimated_range)}
                     helperText={formik.touched.estimated_range && formik.errors.estimated_range}
                 />
-                 <TextField
+                <label>Manual:</label>
+                 <Checkbox
                     fullWidth
                     id="manual"
                     name="manual"
                     label="Manual"
-                    type="checkbox"
-                    value={formik.values.manual}
+                    checked={formik.values.manual}
                     onChange={formik.handleChange}
                     error={formik.touched.manual && Boolean(formik.errors.manual)}
                     helperText={formik.touched.manual && formik.errors.manual}

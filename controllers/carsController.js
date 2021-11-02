@@ -35,7 +35,8 @@ router.get("/:id", async (req, res) => {
 
 //! CREATE 
 router.post("/new", async (req, res) => {
-    req.body.key_features = req.body.key_features.split(",");
+    req.body.key_features = req.body.key_features.toString().split(",");
+    req.body.images = req.body.images.toString().split(",");
     // console.log("data", req.body);
     // console.log("original owner ", req.body.original_owner)
     // console.log("car_id ",req.body._id )
@@ -50,13 +51,20 @@ router.post("/new", async (req, res) => {
 
 
 //! EDIT
-//React route to edit page
+router.get("/:id/edit", async (req, res) => {
+    const { id } = req.params;
+    // console.log("id", id);
+    const thisCar = await Cars.findById(id);
+    // .populate("original_owner");
+    // console.log("thisCar", thisCar);
+    res.json(thisCar);
+  })
 
 
 //! UPDATE
 router.put("/:id", async (req, res) => {
-    const { id } = req.params; 
-    req.body.key_features = req.body.key_features.split(",");
+    req.body.key_features = req.body.key_features.toString().split(",");
+    const  {id}  = req.params; 
     const car = await Cars.findByIdAndUpdate(id, req.body)
     res.json(car)
   })
