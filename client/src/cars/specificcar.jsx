@@ -3,7 +3,7 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState, useRef } from "react";
 import { Box } from "@mui/system";
-import { Divider, LinearProgress, Typography } from "@mui/material";import ImageGallery from 'react-image-gallery';
+import { Avatar, Chip, Divider, LinearProgress, Typography } from "@mui/material";import ImageGallery from 'react-image-gallery';
 
 
 const SpecificCar = () => {
@@ -47,6 +47,14 @@ const SpecificCar = () => {
   const brand = thisCar?.brand;
   const model = thisCar?.model;
   const owner = thisCar?.original_owner;
+  const carDescription = thisCar?.description;
+  const range = thisCar?.estimated_range;
+  const mileage = thisCar?.mileage;
+  const horsepower = thisCar?.horsepower;
+  const manual = thisCar?.manual ? "Manual" : "Auto";
+  const fuelType = thisCar?.fuelType;
+  const keyFeatures = thisCar?.key_features;
+  const rentalRate = thisCar?.rental_rate;
   const ownerAvatar = owner?.display_picture;
   const ownerName = owner?.displayname;
   
@@ -69,18 +77,30 @@ const SpecificCar = () => {
             <Box>
               <img className="user_avatar" src={ownerAvatar} alt="user_avatar" />
               <h3 style={{display:"inline"}}>{ownerName}</h3>
+              <h3 style={{display:"inline"}}>${rentalRate} per day</h3>
             </Box>
             {/* description about car | hosted by: user */}
+            <h2>About {ownerName}'s Car:</h2>
+            <p>{carDescription}</p>
 
-            {/* about car */}
+            <Box>
+              <Chip color="success" label={`Range: ${range}`} /> 
+              <Chip color="success" label={`Horsepower: ${horsepower}`} /> 
+              <Chip color="success" label={`Mileage: ${mileage}`} /> 
+              <Chip color="success" label={`Drive: ${manual}`} /> 
+              <Chip color="success" label={`Fuel: ${fuelType}`} />
+            </Box>
 
-            {/* little tags with car info? */}
+            <h2>Key Features:</h2>
+            <Box>
+              {keyFeatures?.map((eachFeature) => {
+                return (
+                  <Chip key={`${thisCar._id}${eachFeature}`} color="success" label={eachFeature} />
+                )
+              })}
+            </Box>
 
-            {/* key features of car */}
-
-            {/* Rules? */}
-
-            {/* Mileage */}
+            <h2>Reviews:</h2>
           </Box>
           
 
