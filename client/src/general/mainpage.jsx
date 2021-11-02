@@ -17,8 +17,6 @@ import { NavLink } from 'react-router-dom';
 
 
 function Main() {
-  let make = ["Mazda", "Honda"]
-  let model = ["Mx5", "Integra"]
 
   const carURL = "/api/cars/";
   const userURL = "/api/users";
@@ -98,4 +96,3 @@ function Main() {
 }
 
 export default Main;
-//

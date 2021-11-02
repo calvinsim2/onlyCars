@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useHistory  } from "react-router-dom";
 import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -13,8 +13,8 @@ import axios from "axios";
 
 function EditCar() {
 
-
-  const params = useParams()
+  const history = useHistory();
+  const params = useParams();
   const URL = `/api/cars/${params.id}`;
 
   const [car, setCar] = useState(
@@ -58,6 +58,7 @@ function EditCar() {
       body: JSON.stringify(info)
     });
     const data = await res.json();
+
     console.log(data);
   }
 
@@ -112,6 +113,7 @@ function EditCar() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       updateCar(values);
+      history.push(`/cars/${car?._id}`)
     },
   });
 
@@ -263,11 +265,14 @@ function EditCar() {
           error={formik.touched.key_features && Boolean(formik.errors.key_features)}
           helperText={formik.touched.key_features && formik.errors.key_features}
         />
-        <NavLink to={`/cars/${car?._id}`}>
+        
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
-        </NavLink>
+
+           <NavLink to={`/users/${car.original_owner?._id}/`}>
+              <Button>Cancel</Button>
+            </NavLink>
       </form>
     </Grid>
   );
