@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const URL = "/api/cars/new";
 
-function NewCar({ addCar }) {
+function NewCar() {
 
     const createCar = async (info) => {
         const res = await fetch(URL, {
@@ -21,7 +21,6 @@ function NewCar({ addCar }) {
         });
         const data = await res.json();
         console.log(data);
-        addCar(data);
     }
 
     const validationSchema = yup.object({
@@ -61,19 +60,19 @@ function NewCar({ addCar }) {
 
     const formik = useFormik({
         initialValues: {
-            brand: 'Mazda',
-            model: 'Mx5',
-            original_owner: '617bba115821b9a8eb152627',
-            rental_rate: 200,
-            rented_days: 150,
-            mileage: 111111,
-            horsepower: 130,
-            fuel_consumption: 11,
-            estimated_range: 420,
+            brand: "",
+            model: "",
+            original_owner: "",
+            rental_rate: "",
+            rented_days: "",
+            mileage: "",
+            horsepower: "",
+            fuel_consumption: "",
+            estimated_range: "",
             manual: false,
-            fuelType: 'petrol',
-            images: ["url", "url"],
-            key_features: ["bla", "bleh"],
+            fuelType: "",
+            images: "",
+            key_features: "",
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
@@ -229,9 +228,11 @@ function NewCar({ addCar }) {
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
-                <Button color="primary" variant="contained" fullWidth type="submit">
-                    Submit
-                </Button>
+                <NavLink to={`/cars/`}>
+                    <Button color="primary" variant="contained" fullWidth type="submit">
+                        Submit
+                    </Button>
+                </NavLink>
             </form>
         </Grid>
     );
