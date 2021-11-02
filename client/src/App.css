@@ -29,7 +29,6 @@
   align-items: center;
   justify-content: space-around;
 }
-
 .login-form,
 .signup-form {
   display: flex;
@@ -37,8 +36,7 @@
   align-items: center;
   justify-content: space-around;
 }
-
 .login,
 .signup {
-  background: #f4f4f4;
+  background: #F4F4F4;
 }
