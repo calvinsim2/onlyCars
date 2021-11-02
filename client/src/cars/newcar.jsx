@@ -5,11 +5,15 @@ import * as yup from 'yup';
 import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Grid } from '@mui/material';
+import { NavLink, useHistory } from 'react-router-dom';
+
 import axios from 'axios';
 
 const URL = "/api/cars/new";
 
 function NewCar() {
+
+    const history = useHistory();
 
     const createCar = async (info) => {
         const res = await fetch(URL, {
@@ -20,6 +24,7 @@ function NewCar() {
             body: JSON.stringify(info)
         });
         const data = await res.json();
+
         console.log(data);
     }
 
@@ -77,9 +82,10 @@ function NewCar() {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             createCar(values);
+            history.push("/cars")
         },
     });
-
+    
 
 
     return (
@@ -228,11 +234,11 @@ function NewCar() {
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
-                <NavLink to={`/cars/`}>
+                {/* <NavLink to={`/cars/`}> */}
                     <Button color="primary" variant="contained" fullWidth type="submit">
                         Submit
                     </Button>
-                </NavLink>
+                {/* </NavLink> */}
             </form>
         </Grid>
     );

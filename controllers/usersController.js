@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  const thisUser = await Users.findById(id);
+  const thisUser = await Users.findById(id).populate('cars_for_rent');
 
   res.json(thisUser);
 });
