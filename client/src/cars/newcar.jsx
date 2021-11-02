@@ -9,7 +9,7 @@ import axios from 'axios';
 
 const URL = "/api/cars/new";
 
-function NewCar({ addCar }) {
+function NewCar() {
 
     const createCar = async (info) => {
         const res = await fetch(URL, {
@@ -21,7 +21,6 @@ function NewCar({ addCar }) {
         });
         const data = await res.json();
         console.log(data);
-        addCar(data);
     }
 
     const validationSchema = yup.object({
@@ -229,9 +228,11 @@ function NewCar({ addCar }) {
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
-                <Button color="primary" variant="contained" fullWidth type="submit">
-                    Submit
-                </Button>
+                <NavLink to={`/cars/`}>
+                    <Button color="primary" variant="contained" fullWidth type="submit">
+                        Submit
+                    </Button>
+                </NavLink>
             </form>
         </Grid>
     );

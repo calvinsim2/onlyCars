@@ -1,8 +1,7 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import { Grid } from '@mui/material';
+import { Grid, LinearProgress } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -10,186 +9,86 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { Box } from '@mui/system';
+import { CarCard } from '../globalComponents/CarCard';
+import { UserCard } from '../globalComponents/UserCard';
+import { NavLink } from 'react-router-dom';
 
 
-function Main({ addCharfn }) {
+
+function Main() {
   let make = ["Mazda", "Honda"]
   let model = ["Mx5", "Integra"]
 
-  const URL = "/api/cars/";
+  const carURL = "/api/cars/";
+  const userURL = "/api/users";
 
   const [cars, setCars] = useState([]);
+  const [users, setUsers] = useState([]);
   const [status, setStatus] = useState("pending");
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCar = async () => {
       setStatus("loading");
-      const res = await axios.get(URL);
+      const res = await axios.get(carURL);
       console.log(res.data)
       setCars(res.data);
       setStatus("resolved");
     };
-    fetchData();
+    const fetchUser = async () => {
+      const res = await axios.get(userURL);
+      console.log(res.data)
+      setUsers(res.data);
+    };
+    fetchCar();
+    fetchUser();
   }, []);
+
+  const carsCardArrayRender = cars?.map((eachCar, index) => {
+    if (index < 3) {
+      return (
+        <Grid item xs={4} key={`cardCard${eachCar._id}`}>
+          <CarCard carInfo={eachCar} key={`cardCard${eachCar._id}`} />
+        </Grid>
+      )
+    }
+  })
+
+  const userCardArrayRender = users?.map((eachUser, index) => {
+    if (index < 3) {
+      return (
+        // <Grid item xs={4} key={`userCard${eachUser._id}`}>
+        <UserCard userInfo={eachUser} key={`userCard${eachUser._id}`} />
+        // </Grid>
+      )
+    }
+  })
 
   return (
     <>
-      <Typography>Find Cars:</Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={make}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Make" />}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={model}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Model" />}
-          />
-        </Grid>
-      </Grid>
-      <Typography>
-        Top Picks:
-      </Typography>
       <Grid container>
-        {/* can run a loop or a map or whatever later on */}
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/photo-1561043855-7bfc2149641a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Show More</Button>
-            </CardActions>
-          </Card>
+        <Grid item xs={12} sx={{align: "center"}}>
+          <Typography>Welcome to onlyCars. Check out our top picks below or click "search cars" to refine your search!</Typography>
+          <NavLink to="/cars/" style={{textDecoration: 'none'}}>
+            <Button variant="contained">Search Cars</Button>
+          </NavLink>
         </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/photo-1561043855-7bfc2149641a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Show More</Button>
-            </CardActions>
-          </Card>
+        <Typography>
+          <strong>Top Picks:</strong>
+        </Typography>
+        <Grid item container >
+          <Box className="rowStyle">
+            {status === "resolved" ? carsCardArrayRender : <LinearProgress />}
+          </Box>
         </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/photo-1561043855-7bfc2149641a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Show More</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      </Grid>
-      <Typography>
-        Top Users:
-      </Typography>
-      <Grid container>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">See Profile</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">See Profile</Button>
-            </CardActions>
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-              component="img"
-              height="140"
-              image="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2940&q=80"
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Mazda Mx5
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Some info about the damn car
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">See Profile</Button>
-            </CardActions>
-          </Card>
+
+        <Typography>
+          <strong>Top Users:</strong>
+        </Typography>
+        <Grid item container >
+          <Box className="rowStyle">
+            {status === "resolved" ? userCardArrayRender : <LinearProgress />}
+          </Box>
         </Grid>
       </Grid>
     </>

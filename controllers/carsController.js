@@ -53,16 +53,14 @@ router.post("/new", async (req, res) => {
 //! EDIT
 router.get("/:id/edit", async (req, res) => {
     const { id } = req.params;
-    // console.log("id", id);
     const thisCar = await Cars.findById(id);
-    // .populate("original_owner");
-    // console.log("thisCar", thisCar);
     res.json(thisCar);
   })
 
 
 //! UPDATE
 router.put("/:id", async (req, res) => {
+    req.body.images = req.body.images.toString().split(",");
     req.body.key_features = req.body.key_features.toString().split(",");
     const  {id}  = req.params; 
     const car = await Cars.findByIdAndUpdate(id, req.body)
