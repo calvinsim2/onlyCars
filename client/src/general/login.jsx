@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 import { useState, useContext } from "react";
 import { DataContext } from "../App";
@@ -16,6 +16,7 @@ function Login() {
   const [name, setName] = useState("");
   const [inputPassword, setInputPassword] = useState("");
   const { user, setUser } = useContext(DataContext);
+  const history = useHistory();
 
   const typeUsername = (event) => {
     setName(event.target.value);
@@ -24,21 +25,27 @@ function Login() {
     setInputPassword(event.target.value);
   };
 
-  const logIn = async () => {
+  // log in
+  const logIn = async (event) => {
+    event.preventDefault();
+    // check if username and password inserted is purposely
+    // or accidentally left empty by user.
     const loginDetails = {
       username: !!name ? name : null,
       password: !!inputPassword ? inputPassword : null,
     };
 
+    // find user at backend
     const res = await axios.post(URL, loginDetails);
     const data = res.data;
     console.log("this is what we get from server: ", data);
-    setUser(data);
-  };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    logIn();
+    if (data === "wrong") {
+      alert("Incorrect username or password");
+    } else {
+      setUser(data);
+      history.push("/");
+    }
   };
 
   // mui related.
@@ -47,7 +54,7 @@ function Login() {
   };
 
   // RENDER
-  if (user) {
+  if (!!user._id) {
     return <div>{`${user?.username} is logged in!`}</div>;
   }
 
@@ -60,7 +67,7 @@ function Login() {
         <p>Back to Main Page</p>
       </NavLink>
       <div className="login">
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={logIn}>
           <TextField
             name="username"
             size="small"
@@ -81,3 +88,25 @@ function Login() {
 }
 
 export default Login;
+
+// const logIn = async () => {
+//   const loginDetails = {
+//     username: !!name ? name : null,
+//     password: !!inputPassword ? inputPassword : null,
+//   };
+
+//   const res = await axios.post(URL, loginDetails);
+//   const data = res.data;
+//   console.log("this is what we get from server: ", data);
+
+//   if (data === "wrong") {
+//     alert("Incorrect username or password");
+//   } else {
+//     setUser(data);
+//   }
+// };
+
+// const handleSubmit = (event) => {
+//   event.preventDefault();
+//   logIn();
+// };

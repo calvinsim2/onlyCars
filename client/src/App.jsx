@@ -28,7 +28,7 @@ export const DataContext = createContext();
 
 function App() {
   // stores current logged in User!
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   console.log("PAGE RELOADED!");
   //
 
@@ -53,12 +53,13 @@ function App() {
               <SpecificCar />
             </Route>
             {/* User Related Routes */}
-            <Route path="/users">
-              <UserActivity />
-            </Route>
-            <Route path="/users/:id/edit">
+            <Route path="/users/edit/:id">
               <UserEdit />
             </Route>
+            <Route path="/users/:id">
+              <UserActivity />
+            </Route>
+
             {/* General Routes */}
 
             <Route path="/about">
