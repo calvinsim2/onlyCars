@@ -37,7 +37,7 @@ function App() {
       <DataContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <NavigationBar />
-
+        <Box sx={{width:"80vw"}}>
           <Switch>
             {/* Car Related Routes */}
             <Route exact path="/cars">
@@ -77,6 +77,7 @@ function App() {
               <Main />
             </Route>
           </Switch>
+      </Box>
         </BrowserRouter>
       </DataContext.Provider>
     </>
