@@ -41,29 +41,31 @@ router.get("/:id", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   const newUserData = req.body;
-  newUserData.password = bcrypt.hashSync(
-    newUserData.password,
-    bcrypt.genSaltSync(10)
-  );
+  // find db for the inserted username, to see if already exists
+  const checkDuplicate = await Users.find({ username: newUserData.username });
+  // if there ISN'T, then we can create
+  if (!checkDuplicate) {
+    newUserData.password = bcrypt.hashSync(
+      newUserData.password,
+      bcrypt.genSaltSync(10)
+    );
 
-  const newUser = await Users.create(newUserData);
+    const newUser = await Users.create(newUserData);
 
-  // res.json(newUser);
-  res.json("Success");
-});
-
-//! EDIT
-router.get("/:id/edit", async (req, res) => {
-  const { id } = req.params;
-  const thisUser = await Users.findById(id);
-  res.json(thisUser);
+    console.log(newUser);
+    res.json("Success");
+  }
+  // else, tell user to suck thumb and choose another username!
+  else {
+    res.json("username has been taken. 😭");
+  }
 });
 
 //! UPDATE
-router.get("/:id/edit", (req, res) => {
+router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  // Users.findByIdAndUpdate(id);
-  console.log("searching.... placeholder");
+  const updatedUser = await Users.findByIdAndUpdate(id, req.body);
+  res.json(updatedUser);
 });
 
 //! DESTROY

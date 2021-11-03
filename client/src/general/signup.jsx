@@ -25,39 +25,39 @@ function SignUp() {
     setInputDisplayName(event.target.value);
   };
 
-  const CreateUser = async () => {
+  const CreateUser = async (event) => {
+    event.preventDefault();
+    // check if username & password is accidentally an empty value.
     const newUser = {
       username: !!name ? name : null,
 
       password: !!inputpassword ? inputpassword : null,
       displayname: !!inputdisplayName ? inputdisplayName : null,
     };
-    console.log(newUser);
 
-    // console.log("argument is this:", user);
-    // const res =  await axios.post(URL, newUser);
-    // res.data
+    // if username OR password is null, alert user and prevent signing up!
+    if (!newUser.username || !newUser.password) {
+      alert("Oops, username and password CANNOT be null!");
+    }
+    // else, we will proceed to call backend to set up the new user!
+    else {
+      const res = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+      const data = await res.json();
 
-    const res = await fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
-    const data = await res.json();
-    // addHolidayFn(data);
-    console.log("WE GOT THIS BACK FROM BACKEND", data);
-    setStatus(data);
-  };
-
-  const handleSubmit = (event) => {
-    console.log("CLICKED!");
-    event.preventDefault();
-    // const title = event.target.title.value;
-    // console.log("title", title)
-
-    CreateUser();
+      setStatus(data);
+      // if nothing else is wrong, server will send a success note.
+      if (data === "Success") {
+        alert(`A new user with username of ${newUser.username} is created!`);
+      } else {
+        alert(`Sorry, ${data} `);
+      }
+    }
   };
 
   // mui related.
@@ -78,7 +78,7 @@ function SignUp() {
           <p>Back to Main Page</p>
         </NavLink>
         <div className="signup">
-          <form className="signup-form" onSubmit={handleSubmit}>
+          <form className="signup-form" onSubmit={CreateUser}>
             <TextField
               name="username"
               size="small"

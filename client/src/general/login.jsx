@@ -54,7 +54,7 @@ function Login() {
   };
 
   // RENDER
-  if (!!user._id) {
+  if (!!user?._id === true) {
     return <div>{`${user?.username} is logged in!`}</div>;
   }
 
