@@ -6,7 +6,7 @@ import { DataContext } from "../App";
 import axios from "axios"
 
 
-export const RentalCard = ({rentalEvent}) => {
+export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
     
     const { user, setUser } = useContext(DataContext);
     const carInfo = rentalEvent.car_rented;
@@ -14,22 +14,40 @@ export const RentalCard = ({rentalEvent}) => {
     const thisIsMyCar = carOwner === user._id;
     const confirmedRental = rentalEvent.owner_confirmation;
 
+    const handleDeleteEvent = async () => {
+        const URL = `/api/carRentalEvents/${rentalEvent._id}`;
+        const res = await axios.delete(URL);
+        const data = res.data;
+        console.log(data);
+        // console.log(rentalEvents);
+        const newRentalEvents = rentalEvents.filter(arrayStep => arrayStep._id !== rentalEvent._id);
+        // console.log(newRentalEvents);
+        setRentalEvents(newRentalEvents);
+    }
+
+    const handleConfirmEvent = async () => {
+        const foundIndex = rentalEvents.findIndex(arrayStep => arrayStep._id === rentalEvent._id);
+        console.log(foundIndex);
+        
+    }
+
     const unconfirmedButtons = [
         <Box className="rowStyle" sx={{m:"1em"}}>
             { rentalEvent.user === user._id 
             ?
-            <Button variant="contained">Cancel</Button> 
+            <Button onClick={handleDeleteEvent} variant="contained">Cancel</Button> 
             : null}
             { thisIsMyCar 
             ?
             <>
-            <Button variant="contained">Confirm</Button>
-            <Button variant="contained" color="error">Reject</Button>
+            <Button onClick={handleConfirmEvent} variant="contained">Confirm</Button>
+            <Button onClick={handleDeleteEvent} variant="contained" color="error">Reject</Button>
             </> 
             : null}
 
         </Box>
     ]
+
 
     const confirmedButtons = [
         <Box className="rowStyle" sx={{m:"1em"}}>
@@ -42,7 +60,7 @@ export const RentalCard = ({rentalEvent}) => {
             { thisIsMyCar 
             ?
             <>
-            <Button variant="contained" color="error">End Loan</Button>
+            <Button onClick={handleDeleteEvent} variant="contained" color="error">End Loan</Button>
             </> 
             : null}
 
