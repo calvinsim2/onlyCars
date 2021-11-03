@@ -5,7 +5,7 @@ import { DataContext } from "../App";
 function Payment() {
   const { user } = useContext(DataContext);
 
-  if (!!!user._id) {
+  if (!!user._id === false) {
     return <Redirect to="/login" />;
   }
   return (
