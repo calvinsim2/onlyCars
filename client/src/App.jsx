@@ -39,47 +39,47 @@ function App() {
           <NavigationBar />
           <Box sx={{width:"90vw", margin:"auto"}}>
 
-          <Switch>
-            {/* Car Related Routes */}
-            <Route exact path="/cars">
-              <AllCars />
-            </Route>
-            <Route path="/cars/new">
-              <NewCar />
-            </Route>
-            <Route path="/cars/:id/edit">
-              <EditCar />
-            </Route>
-            <Route path="/cars/:id">
-              <SpecificCar />
-            </Route>
-            {/* User Related Routes */}
-            <Route path="/users/edit/:id">
-              <UserEdit />
-            </Route>
-            <Route path="/users/:id">
-              <UserActivity />
-            </Route>
+            <Switch>
+              {/* Car Related Routes */}
+              <Route exact path="/cars">
+                <AllCars />
+              </Route>
+              <Route path="/cars/new">
+                <NewCar />
+              </Route>
+              <Route path="/cars/:id/edit">
+                <EditCar />
+              </Route>
+              <Route path="/cars/:id">
+                <SpecificCar />
+              </Route>
+              {/* User Related Routes */}
+              <Route path="/users/edit/:id">
+                <UserEdit />
+              </Route>
+              <Route path="/users/:id">
+                <UserActivity />
+              </Route>
 
-            {/* General Routes */}
+              {/* General Routes */}
 
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-            <Route path="/payment">
-              <Payment />
-            </Route>
-            <Route exact path="/">
-              <Main />
-            </Route>
-          </Switch>
-
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/signup">
+                <SignUp />
+              </Route>
+              <Route path="/payment">
+                <Payment />
+              </Route>
+              <Route exact path="/">
+                <Main />
+              </Route>
+            </Switch>
+          </Box>
         </BrowserRouter>
       </DataContext.Provider>
     </>
