@@ -37,47 +37,47 @@ function App() {
       <DataContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <NavigationBar />
-        <Box sx={{width:"80vw"}}>
-          <Switch>
-            {/* Car Related Routes */}
-            <Route exact path="/cars">
-              <AllCars />
-            </Route>
-            <Route path="/cars/new">
-              <NewCar />
-            </Route>
-            <Route path="/cars/:id/edit">
-              <EditCar />
-            </Route>
-            <Route path="/cars/:id">
-              <SpecificCar />
-            </Route>
-            {/* User Related Routes */}
-            <Route path="/users">
-              <UserActivity />
-            </Route>
-            <Route path="/users/:id/edit">
-              <UserEdit />
-            </Route>
-            {/* General Routes */}
+          <Box sx={{width:"90vw", margin:"auto"}}>
+            <Switch>
+              {/* Car Related Routes */}
+              <Route exact path="/cars">
+                <AllCars />
+              </Route>
+              <Route path="/cars/new">
+                <NewCar />
+              </Route>
+              <Route path="/cars/:id/edit">
+                <EditCar />
+              </Route>
+              <Route path="/cars/:id">
+                <SpecificCar />
+              </Route>
+              {/* User Related Routes */}
+              <Route path="/users">
+                <UserActivity />
+              </Route>
+              <Route path="/users/:id/edit">
+                <UserEdit />
+              </Route>
+              {/* General Routes */}
 
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-            <Route path="/payment">
-              <Payment />
-            </Route>
-            <Route exact path="/">
-              <Main />
-            </Route>
-          </Switch>
-      </Box>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/signup">
+                <SignUp />
+              </Route>
+              <Route path="/payment">
+                <Payment />
+              </Route>
+              <Route exact path="/">
+                <Main />
+              </Route>
+            </Switch>
+          </Box>
         </BrowserRouter>
       </DataContext.Provider>
     </>
