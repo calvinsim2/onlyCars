@@ -121,6 +121,17 @@ function UserEdit() {
               formik.touched.display_picture && formik.errors.display_picture
             }
           />
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="password"
+            type="string"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
           </Button>
