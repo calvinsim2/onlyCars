@@ -24,7 +24,7 @@ export const CarDetails = ({thisCar}) => {
 
     return (
         <Box width="50vw"  sx={{ml:"0.5em", mr:"0.5em"}}>
-            <h1>testleft</h1>
+            
             <h1>{brand} {model}</h1>
             {!!thisCar?.images?.length ? <ImageGallery items={carImages} /> : Null }
             

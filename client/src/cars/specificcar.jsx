@@ -101,7 +101,7 @@ const SpecificCar = () => {
           
 
           <Box width="30vw" sx={{ml:"0.5em", mr:"0.5em"}}>
-            <h1>testright</h1>
+            
             {/* //! RIGHT PANEL */}
             <h1>Rent this Car:</h1>
             {/* <button onClick={()=>console.log(selectedDay)}>log day</button> */}
