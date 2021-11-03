@@ -20,7 +20,7 @@ function NavigationBar() {
     setUser();
   };
 
-  if (user) {
+  if ((!!user._id)) {
     return (
       <>
         <Box sx={{ flexGrow: 1 }}>

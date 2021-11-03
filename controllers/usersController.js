@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
 
-  const thisUser = await Users.findById(id).populate('cars_for_rent');
+  const thisUser = await Users.findById(id).populate("cars_for_rent");
 
   res.json(thisUser);
 });
@@ -53,8 +53,18 @@ router.post("/new", async (req, res) => {
 });
 
 //! EDIT
+router.get("/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  const thisUser = await Users.findById(id);
+  res.json(thisUser);
+});
 
 //! UPDATE
+router.get("/:id/edit", (req, res) => {
+  const { id } = req.params;
+  // Users.findByIdAndUpdate(id);
+  console.log("searching.... placeholder");
+});
 
 //! DESTROY
 

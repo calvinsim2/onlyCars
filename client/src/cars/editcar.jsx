@@ -1,40 +1,35 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { NavLink, useParams, useHistory  } from "react-router-dom";
-import ReactDOM from 'react-dom';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { Button } from '@mui/material';
-import { TextField } from '@mui/material';
+import { NavLink, useParams, useHistory } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { Button } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Checkbox } from "@mui/material";
-import { Grid } from '@mui/material';
+import { Grid } from "@mui/material";
 import axios from "axios";
 
-
 function EditCar() {
-
   const history = useHistory();
   const params = useParams();
   const URL = `/api/cars/${params.id}`;
 
-  const [car, setCar] = useState(
-    {
-      brand: "",
-      model: "",
-      original_owner: "",
-      rental_rate: "",
-      rented_days: "",
-      mileage: "",
-      horsepower: "",
-      fuel_consumption: "",
-      estimated_range: "",
-      manual: false,
-      fuelType: "",
-      images: ["url"],
-      key_features: ["features"],
-    }
-  );
-
+  const [car, setCar] = useState({
+    brand: "",
+    model: "",
+    original_owner: "",
+    rental_rate: "",
+    rented_days: "",
+    mileage: "",
+    horsepower: "",
+    fuel_consumption: "",
+    estimated_range: "",
+    manual: false,
+    fuelType: "",
+    images: ["url"],
+    key_features: ["features"],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,11 +38,8 @@ function EditCar() {
     };
     fetchData();
   }, []);
-  console.log("Working on this car ", car)
+  console.log("Working on this car ", car);
   console.log(car.manual);
-
-
-
 
   const updateCar = async (info) => {
     const res = await fetch(URL, {
@@ -55,43 +47,32 @@ function EditCar() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(info)
+      body: JSON.stringify(info),
     });
     const data = await res.json();
 
     console.log(data);
-  }
+  };
 
   const validationSchema = yup.object({
-    brand: yup
-      .string('Enter Car Brand')
-      .required('Brand is required'),
-    model: yup
-      .string('Enter your model')
-      .required('Model is required'),
+    brand: yup.string("Enter Car Brand").required("Brand is required"),
+    model: yup.string("Enter your model").required("Model is required"),
     original_owner: yup
-      .string('Enter the original owner')
-      .required('Owner is required'),
+      .string("Enter the original owner")
+      .required("Owner is required"),
     rental_rate: yup
-      .string('Enter the rental rate')
-      .required('Rental rate is required'),
-    rented_days: yup
-      .string('Enter the rented days'),
-    mileage: yup
-      .number('What is the mileage'),
-    horsepower: yup
-      .string('Enter the horsepower'),
-    fuel_consumption: yup
-      .number('Enter the fuel consumption'),
-    estimated_range: yup
-      .number('Enter the range'),
-    manual: yup
-      .boolean('Is it a manual car?'),
+      .string("Enter the rental rate")
+      .required("Rental rate is required"),
+    rented_days: yup.string("Enter the rented days"),
+    mileage: yup.number("What is the mileage"),
+    horsepower: yup.string("Enter the horsepower"),
+    fuel_consumption: yup.number("Enter the fuel consumption"),
+    estimated_range: yup.number("Enter the range"),
+    manual: yup.boolean("Is it a manual car?"),
     fuelType: yup
-      .string('Enter the Fuel Type')
-      .required('Fuel type is required'),
+      .string("Enter the Fuel Type")
+      .required("Fuel type is required"),
   });
-
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -113,10 +94,9 @@ function EditCar() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       updateCar(values);
-      history.push(`/cars/${car?._id}`)
+      history.push(`/cars/${car?._id}`);
     },
   });
-
 
   return (
     <Grid container>
@@ -152,8 +132,13 @@ function EditCar() {
           disabled={true}
           value={formik.values.original_owner}
           onChange={formik.handleChange}
-          error={formik.touched.original_owner && Boolean(formik.errors.original_owner)}
-          helperText={formik.touched.original_owner && formik.errors.original_owner}
+          error={
+            formik.touched.original_owner &&
+            Boolean(formik.errors.original_owner)
+          }
+          helperText={
+            formik.touched.original_owner && formik.errors.original_owner
+          }
         />
         <TextField
           fullWidth
@@ -163,7 +148,9 @@ function EditCar() {
           type="number"
           value={formik.values.rental_rate}
           onChange={formik.handleChange}
-          error={formik.touched.rental_rate && Boolean(formik.errors.rental_rate)}
+          error={
+            formik.touched.rental_rate && Boolean(formik.errors.rental_rate)
+          }
           helperText={formik.touched.rental_rate && formik.errors.rental_rate}
         />
         <TextField
@@ -174,7 +161,9 @@ function EditCar() {
           type="number"
           value={formik.values.rented_days}
           onChange={formik.handleChange}
-          error={formik.touched.rented_days && Boolean(formik.errors.rented_days)}
+          error={
+            formik.touched.rented_days && Boolean(formik.errors.rented_days)
+          }
           helperText={formik.touched.rented_days && formik.errors.rented_days}
         />
         <TextField
@@ -207,8 +196,13 @@ function EditCar() {
           type="number"
           value={formik.values.fuel_consumption}
           onChange={formik.handleChange}
-          error={formik.touched.fuel_consumption && Boolean(formik.errors.fuel_consumption)}
-          helperText={formik.touched.fuel_consumption && formik.errors.fuel_consumption}
+          error={
+            formik.touched.fuel_consumption &&
+            Boolean(formik.errors.fuel_consumption)
+          }
+          helperText={
+            formik.touched.fuel_consumption && formik.errors.fuel_consumption
+          }
         />
         <TextField
           fullWidth
@@ -218,8 +212,13 @@ function EditCar() {
           type="number"
           value={formik.values.estimated_range}
           onChange={formik.handleChange}
-          error={formik.touched.estimated_range && Boolean(formik.errors.estimated_range)}
-          helperText={formik.touched.estimated_range && formik.errors.estimated_range}
+          error={
+            formik.touched.estimated_range &&
+            Boolean(formik.errors.estimated_range)
+          }
+          helperText={
+            formik.touched.estimated_range && formik.errors.estimated_range
+          }
         />
         <label>Manual:</label>
         <Checkbox
@@ -262,20 +261,22 @@ function EditCar() {
           type="string"
           value={formik.values.key_features}
           onChange={formik.handleChange}
-          error={formik.touched.key_features && Boolean(formik.errors.key_features)}
+          error={
+            formik.touched.key_features && Boolean(formik.errors.key_features)
+          }
           helperText={formik.touched.key_features && formik.errors.key_features}
         />
-        
-          <Button color="primary" variant="contained" fullWidth type="submit">
-            Submit
-          </Button>
 
-           <NavLink to={`/users/${car.original_owner?._id}/`}>
-              <Button>Cancel</Button>
-            </NavLink>
+        <Button color="primary" variant="contained" fullWidth type="submit">
+          Submit
+        </Button>
+
+        <NavLink to={`/users/${car.original_owner?._id}/`}>
+          <Button>Cancel</Button>
+        </NavLink>
       </form>
     </Grid>
   );
-};
+}
 
 export default EditCar;
