@@ -14,16 +14,16 @@ router.get("/", async (req, res) => {
 //! SHOW
 router.get("/:id", async (req, res) => {
     const { id } = req.params;
-    const car = await CarRentalEvents.findById(id);
-    res.json(car);
+    const thisRentalEvent = await CarRentalEvents.findById(id);
+    res.json(thisRentalEvent);
   })
 
 
 //! CREATE
 router.post("/new", async (req, res) => {
     console.log("data", req.body);
-    const cars = await CarRentalEvents.create(req.body);
-    res.json(cars);
+    const newRentalEvent = await CarRentalEvents.create(req.body);
+    res.json(newRentalEvent);
   });
 
 
@@ -34,8 +34,8 @@ router.post("/new", async (req, res) => {
 //! UPDATE
 router.put("/:id", async (req, res) => {
     const { id } = req.params; 
-    const car = await CarRentalEvents.findByIdAndUpdate(id, req.body)
-    res.json(car)
+    const thisRentalEvent = await CarRentalEvents.findByIdAndUpdate(id, req.body);
+    res.json(thisRentalEvent);
   })
 
 
