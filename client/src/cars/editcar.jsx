@@ -39,7 +39,7 @@ function EditCar() {
     fetchData();
   }, []);
   console.log("Working on this car ", car);
-  console.log(car.manual);
+  
 
   const updateCar = async (info) => {
     const res = await fetch(URL, {
@@ -94,7 +94,7 @@ function EditCar() {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       updateCar(values);
-      history.push(`/cars/${car?._id}`);
+      history.push(`/users/${car.original_owner?._id}/`);
     },
   });
 
@@ -122,23 +122,6 @@ function EditCar() {
           onChange={formik.handleChange}
           error={formik.touched.model && Boolean(formik.errors.model)}
           helperText={formik.touched.model && formik.errors.model}
-        />
-        <TextField
-          fullWidth
-          id="original_owner"
-          name="original_owner"
-          // label="Original Owner"
-          type="string"
-          disabled={true}
-          value={formik.values.original_owner}
-          onChange={formik.handleChange}
-          error={
-            formik.touched.original_owner &&
-            Boolean(formik.errors.original_owner)
-          }
-          helperText={
-            formik.touched.original_owner && formik.errors.original_owner
-          }
         />
         <TextField
           fullWidth

@@ -41,6 +41,7 @@ router.post("/new", async (req, res) => {
     // console.log("original owner ", req.body.original_owner)
     // console.log("car_id ",req.body._id )
     const id = req.body.original_owner
+    console.log("Finding Id on create route", id)
     const cars = await Cars.create(req.body);
     const carID = await Cars.find(req.body, "_id");
     console.log("car id", carID);
@@ -51,11 +52,11 @@ router.post("/new", async (req, res) => {
 
 
 //! EDIT
-router.get("/:id/edit", async (req, res) => {
-    const { id } = req.params;
-    const thisCar = await Cars.findById(id);
-    res.json(thisCar);
-  })
+// router.get("/:id/edit", async (req, res) => {
+//     const { id } = req.params;
+//     const thisCar = await Cars.findById(id);
+//     res.json(thisCar);
+//   })
 
 
 //! UPDATE
@@ -72,7 +73,11 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     const { id } = req.params;
     try {
+      const originalOwner = await Cars.findById(id, "original_owner")
+      const userIDnumber = await originalOwner._id.toString();
+      console.log("original owner", userIDnumber);
       const result = await Cars.findByIdAndDelete(id);
+      const user = await Users.findByIdAndUpdate( "6181e8aebfd0ebf72c10be2e" , {$pull:{cars_for_rent: id }});
       res.json(result);
     } catch (error) {
       res.json({ error });

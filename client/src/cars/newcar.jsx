@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button } from '@mui/material';
-import { TextField } from '@mui/material';
+import { TextField, Checkbox, Autocomplete } from '@mui/material';
 import { Grid } from '@mui/material';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useContext } from "react";
@@ -18,6 +18,8 @@ function NewCar() {
     const { user } = useContext(DataContext);
 
     const history = useHistory();
+
+    const typesOfDifferentFuels = ["Petrol", "Diesel", "Electric", "Ethanol", "Hydrogen"]
 
     const createCar = async (info) => {
         const res = await fetch(URL, {
@@ -86,10 +88,10 @@ function NewCar() {
         validationSchema: validationSchema,
         onSubmit: (values) => {
             createCar(values);
-            history.push("/cars")
+            history.push(`/users/${user?._id}/`)
         },
     });
-    
+
 
 
     return (
@@ -195,13 +197,13 @@ function NewCar() {
                     error={formik.touched.estimated_range && Boolean(formik.errors.estimated_range)}
                     helperText={formik.touched.estimated_range && formik.errors.estimated_range}
                 />
-                <TextField
+                <label>Manual:</label>
+                <Checkbox
                     fullWidth
                     id="manual"
                     name="manual"
                     label="Manual"
-                    type="checkbox"
-                    value={formik.values.manual}
+                    checked={formik.values.manual}
                     onChange={formik.handleChange}
                     error={formik.touched.manual && Boolean(formik.errors.manual)}
                     helperText={formik.touched.manual && formik.errors.manual}
@@ -217,6 +219,29 @@ function NewCar() {
                     error={formik.touched.fuelType && Boolean(formik.errors.fuelType)}
                     helperText={formik.touched.fuelType && formik.errors.fuelType}
                 />
+                {/* <Autocomplete
+                    id="fuelType"
+                    name="fuelType"
+                    options={typesOfDifferentFuels}
+                    getOptionLabel={option => option.name}
+                    style={{ width: 300 }}
+                    onChange={(e, value) => {
+                        console.log(value);
+                        setFieldValue(
+                            "Fuel",
+                            value !== null ? value : initialValues.city_id
+                        );
+                    }}
+                    renderInput={params => (
+                        <TextField
+                            margin="normal"
+                            label="Fuel Type"
+                            fullWidth
+                            name="city_id"
+                            {...params}
+                        />
+                    )}
+                /> */}
                 <TextField
                     fullWidth
                     id="images"
@@ -240,9 +265,9 @@ function NewCar() {
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
                 {/* <NavLink to={`/cars/`}> */}
-                    <Button color="primary" variant="contained" fullWidth type="submit">
-                        Submit
-                    </Button>
+                <Button color="primary" variant="contained" fullWidth type="submit">
+                    Submit
+                </Button>
                 {/* </NavLink> */}
             </form>
         </Grid>
