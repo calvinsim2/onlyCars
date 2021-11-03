@@ -18,7 +18,7 @@ function UserActivity() {
   const { user } = useContext(DataContext);
 
 
-  if (!(!!user._id)) {
+  if (!!user?._id === false) {
     return <Redirect to="/login" />;
   }
 
@@ -66,6 +66,11 @@ function UserActivity() {
     <>
       <h1>这个是 UserActivity Page!</h1>
       <Grid container>
+        <Grid item xs={12}>
+          <NavLink to={`/users/edit/${user?._id}`}>
+            <Button>Edit Account Details</Button>
+          </NavLink>
+        </Grid>
         <Grid item xs={12}>
           <Typography>{thisUser.username}</Typography>
         </Grid>
