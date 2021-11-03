@@ -14,7 +14,7 @@ router.post("/new", async (req, res) => {
   console.log(req.body);
   const thisUser = await Users.findOne({ username: username });
 
-  if (!!thisUser === false) return res.send("No such user");
+  if (!!thisUser === false) return res.send("wrong");
 
   const passwordCorrectBool = await bcrypt.compare(password, thisUser.password);
 
@@ -22,7 +22,7 @@ router.post("/new", async (req, res) => {
     req.session.loginUser = thisUser;
     console.log("new session: ", req.session);
     res.json(req.session.loginUser);
-  } else return res.send("wrong password my dude.");
+  } else return res.send("wrong");
 });
 
 router.delete("/", (req, res) => {

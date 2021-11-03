@@ -6,12 +6,16 @@ import { Button } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Grid } from '@mui/material';
 import { NavLink, useHistory } from 'react-router-dom';
+import { useContext } from "react";
+import { DataContext } from "../App";
 
 import axios from 'axios';
 
 const URL = "/api/cars/new";
 
 function NewCar() {
+
+    const { user } = useContext(DataContext);
 
     const history = useHistory();
 
@@ -67,7 +71,7 @@ function NewCar() {
         initialValues: {
             brand: "",
             model: "",
-            original_owner: "",
+            original_owner: user?._id,
             rental_rate: "",
             rented_days: "",
             mileage: "",
@@ -119,6 +123,7 @@ function NewCar() {
                     name="original_owner"
                     label="Original Owner"
                     type="string"
+                    disabled={true}
                     value={formik.values.original_owner}
                     onChange={formik.handleChange}
                     error={formik.touched.original_owner && Boolean(formik.errors.original_owner)}

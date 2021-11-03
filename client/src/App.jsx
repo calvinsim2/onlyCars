@@ -28,7 +28,7 @@ export const DataContext = createContext();
 
 function App() {
   // stores current logged in User!
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   console.log("PAGE RELOADED!");
   //
 
@@ -38,46 +38,48 @@ function App() {
         <BrowserRouter>
           <NavigationBar />
           <Box sx={{width:"90vw", margin:"auto"}}>
-            <Switch>
-              {/* Car Related Routes */}
-              <Route exact path="/cars">
-                <AllCars />
-              </Route>
-              <Route path="/cars/new">
-                <NewCar />
-              </Route>
-              <Route path="/cars/:id/edit">
-                <EditCar />
-              </Route>
-              <Route path="/cars/:id">
-                <SpecificCar />
-              </Route>
-              {/* User Related Routes */}
-              <Route path="/users">
-                <UserActivity />
-              </Route>
-              <Route path="/users/:id/edit">
-                <UserEdit />
-              </Route>
-              {/* General Routes */}
 
-              <Route path="/about">
-                <About />
-              </Route>
-              <Route path="/login">
-                <Login />
-              </Route>
-              <Route path="/signup">
-                <SignUp />
-              </Route>
-              <Route path="/payment">
-                <Payment />
-              </Route>
-              <Route exact path="/">
-                <Main />
-              </Route>
-            </Switch>
-          </Box>
+          <Switch>
+            {/* Car Related Routes */}
+            <Route exact path="/cars">
+              <AllCars />
+            </Route>
+            <Route path="/cars/new">
+              <NewCar />
+            </Route>
+            <Route path="/cars/:id/edit">
+              <EditCar />
+            </Route>
+            <Route path="/cars/:id">
+              <SpecificCar />
+            </Route>
+            {/* User Related Routes */}
+            <Route path="/users/edit/:id">
+              <UserEdit />
+            </Route>
+            <Route path="/users/:id">
+              <UserActivity />
+            </Route>
+
+            {/* General Routes */}
+
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/payment">
+              <Payment />
+            </Route>
+            <Route exact path="/">
+              <Main />
+            </Route>
+          </Switch>
+
         </BrowserRouter>
       </DataContext.Provider>
     </>
