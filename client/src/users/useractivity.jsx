@@ -12,10 +12,12 @@ import {
 import { Button } from "@mui/material";
 import axios from "axios";
 import { DataContext } from "../App";
+import { UserCarsForRentCard } from "../globalComponents/UserCarsForRentCard";
 
 function UserActivity() {
   const { user } = useContext(DataContext);
-  
+
+
   if (!(!!user._id)) {
     return <Redirect to="/login" />;
   }
@@ -23,40 +25,39 @@ function UserActivity() {
   const params = useParams();
 
   const userURL = `/api/users/${params.id}`;
+  const [fetchState, setFetchState] = useState("loading");
   const [thisUser, setThisUser] = useState([]);
-
+  const [usersCars, setUsersCars] = useState([]);
+  
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(userURL);
       console.log(res.data);
       setThisUser(res.data);
+      setUsersCars(res.data.cars_for_rent);
+      setFetchState("complete")
     };
     fetchUser();
   }, []);
+  
 
-  console.log(thisUser);
+
+  // console.log("thisUser ", thisUser);
+  // let usersCars = thisUser.cars_for_rent;
+  // console.log("userCars", usersCars)
+
+
+  const handleDelete = async (id) => {
+    const url = `/api/cars/${id}`;
+    await axios.delete(url);
+    setUsersCars(usersCars.filter((h) => h._id !== id));
+    console.log("userCars", usersCars)
+  };
 
   const renderCarsForRent = () => {
-    if (thisUser.cars_for_rent !== undefined) {
-      return thisUser.cars_for_rent.map((car, i) => (
-        <Grid item xs={3} key={i}>
-          <Card>
-            <CardMedia
-              component="img"
-              height="140px"
-              image={car.images[0]}
-              alt="Picture of the damn car"
-            />
-            <CardContent>
-              {car.brand} {car.model}
-            </CardContent>
-            <CardActions>
-              <NavLink to={`/cars/${car?._id}/edit`}>
-                <Button>Edit</Button>
-              </NavLink>
-            </CardActions>
-          </Card>
-        </Grid>
+    if (usersCars !== undefined) {
+      return usersCars.map((car, i) => (
+       <UserCarsForRentCard i={i} car={car} usersCars={usersCars} handleDelete={handleDelete}/>
       ));
     }
   };
