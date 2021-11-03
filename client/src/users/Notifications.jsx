@@ -60,9 +60,7 @@ export const Notifications = () => {
                 const carOwner = thisREvent?.original_owner?._id;
                 const thisIsMyCar = carOwner === user._id;
                 if (thisREvent.owner_confirmation === false) return (
-                    <Box className="colStyle" sx={thisIsMyCar ? {backgroundColor: "lightgreen", ml:"0.5em", mr:"0.5em"} : {ml:"0.5em", mr:"0.5em"}}>
-                        <RentalCard rentalEvent={thisREvent} />
-                    </Box>
+                    <RentalCard rentalEvent={thisREvent} />
 
                 )
             })}
@@ -73,9 +71,7 @@ export const Notifications = () => {
                 const carOwner = thisREvent?.original_owner?._id;
                 const thisIsMyCar = carOwner === user._id;
                 if (thisREvent.owner_confirmation === true) return (
-                    <Box className="colStyle" sx={thisIsMyCar ? {backgroundColor: "lightgreen", ml:"0.5em", mr:"0.5em"} : {ml:"0.5em", mr:"0.5em"}}>
-                        <CarCard carInfo={thisREvent.car_rented} />
-                    </Box>
+                    <RentalCard key={`${user._id}keyloan${carOwner}`} rentalEvent={thisREvent} />
                 )
             })}
         </Box>

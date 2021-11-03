@@ -3,7 +3,7 @@ import { Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } f
 import { Box } from '@mui/system';
 import {useContext} from "react";
 import { DataContext } from "../App";
-import { NavLink } from 'react-router-dom';
+import axios from "axios"
 
 
 export const RentalCard = ({rentalEvent}) => {
@@ -12,8 +12,45 @@ export const RentalCard = ({rentalEvent}) => {
     const carInfo = rentalEvent.car_rented;
     const carOwner = rentalEvent?.original_owner?._id;
     const thisIsMyCar = carOwner === user._id;
+    const confirmedRental = rentalEvent.owner_confirmation;
+
+    const unconfirmedButtons = [
+        <Box className="rowStyle" sx={{m:"1em"}}>
+            { rentalEvent.user === user._id 
+            ?
+            <Button variant="contained">Cancel</Button> 
+            : null}
+            { thisIsMyCar 
+            ?
+            <>
+            <Button variant="contained">Confirm</Button>
+            <Button variant="contained" color="error">Reject</Button>
+            </> 
+            : null}
+
+        </Box>
+    ]
+
+    const confirmedButtons = [
+        <Box className="rowStyle" sx={{m:"1em"}}>
+            { rentalEvent.user === user._id 
+            ?
+            null 
+            : 
+            null}
+
+            { thisIsMyCar 
+            ?
+            <>
+            <Button variant="contained" color="error">End Loan</Button>
+            </> 
+            : null}
+
+        </Box>
+    ]
     return (
-        <Card sx={{ width: "15em", m:"0.5em"}} key={`card-${carInfo?._id}`}>
+        <Box className="colStyle" sx={thisIsMyCar ? {backgroundColor: "lightgreen", ml:"0.5em", mr:"0.5em"} : {ml:"0.5em", mr:"0.5em"}}>
+        <Card sx={{ width: "20em", m:"0.5em"}} key={`card-${carInfo?._id}`}>
             <CardMedia
             component="img"
             height="140px"
@@ -27,7 +64,7 @@ export const RentalCard = ({rentalEvent}) => {
             <Box className="colStyle">
                 <Button onClick={()=>console.log(rentalEvent)}>log</Button>
             <Typography gutterBottom variant="h7">
-                Proposed Rent Date:
+                {confirmedRental ? "Loan Duration:" : "Proposed Rent Date:"}
             </Typography>
             <Typography gutterBottom variant="h7">
                 Start: {rentalEvent.start_date}
@@ -38,21 +75,9 @@ export const RentalCard = ({rentalEvent}) => {
             </Box>
             </CardContent>
             <CardActions>
-                <Box className="rowStyle" sx={{m:"1em"}}>
-                    { rentalEvent.user === user._id 
-                    ?
-                    <Button variant="contained">Cancel</Button> 
-                    : null}
-                    { thisIsMyCar 
-                    ?
-                    <>
-                    <Button variant="contained">Confirm</Button>
-                    <Button variant="contained" color="error">Reject</Button>
-                    </> 
-                    : null}
-
-                </Box>
+                {confirmedRental ? confirmedButtons : unconfirmedButtons}
             </CardActions>
         </Card>
+        </Box>
     )
 }
