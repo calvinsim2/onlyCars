@@ -22,6 +22,7 @@ import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
 import "./App.css";
 import { Box } from "@mui/system";
+import { Notifications } from "./users/Notifications.jsx";
 
 // Context
 export const DataContext = createContext();
@@ -74,6 +75,9 @@ function App() {
               </Route>
               <Route path="/payment">
                 <Payment />
+              </Route>
+              <Route path="/notifications">
+                <Notifications />
               </Route>
               <Route exact path="/">
                 <Main />
