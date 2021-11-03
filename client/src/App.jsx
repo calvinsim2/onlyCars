@@ -53,11 +53,11 @@ function App() {
               <SpecificCar />
             </Route>
             {/* User Related Routes */}
-            <Route path="/users">
-              <UserActivity />
-            </Route>
-            <Route path="/users/:id/edit">
+            <Route path="/users/edit/:id/">
               <UserEdit />
+            </Route>
+            <Route path="/users/:id">
+              <UserActivity />
             </Route>
             {/* General Routes */}
 
