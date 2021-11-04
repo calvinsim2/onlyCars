@@ -105,7 +105,9 @@ export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
                 <Button onClick={()=>console.log(rentalEvents)}>rentalEvents</Button> */}
             <Typography gutterBottom variant="h7">
                 {confirmedRental ? "Loaned By: " : "Loan request from: "}
+                <Link to={`/users/${rentalEvent.user._id}`}>
                 {rentalEvent.user.displayname}
+                </Link>
             </Typography>
             <Typography gutterBottom variant="h7">
                 {confirmedRental ? "Loan Duration:" : "Proposed Rent Date:"}
