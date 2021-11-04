@@ -248,6 +248,8 @@ function NewCar({ addCarNow, setShowState }) {
                     name="description"
                     label="description"
                     type="string"
+                    multiline
+                    rows={4}
                     value={formik.values.description}
                     onChange={formik.handleChange}
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}

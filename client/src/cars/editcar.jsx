@@ -17,12 +17,12 @@ function EditCar() {
   const URL = `/api/cars/${params.id}`;
 
   const typesOfDifferentFuels = [
-    {id: "Petrol", value: "Petrol", name: "Petrol"}, 
-    {id: "Diesel", value: "Diesel", name: "Diesel"}, 
-    {id: "Electric", value: "Electric", name: "Electric"}, 
-    {id: "Hybrid", value: "Hybrid", name: "Hybrid"}, 
-    {id: "Hydrogen", value: "Hydrogen", name: "Hydrogen"}
-]
+    { id: "Petrol", value: "Petrol", name: "Petrol" },
+    { id: "Diesel", value: "Diesel", name: "Diesel" },
+    { id: "Electric", value: "Electric", name: "Electric" },
+    { id: "Hybrid", value: "Hybrid", name: "Hybrid" },
+    { id: "Hydrogen", value: "Hydrogen", name: "Hydrogen" }
+  ]
 
   const [car, setCar] = useState({
     brand: "",
@@ -99,6 +99,7 @@ function EditCar() {
       fuelType: car.fuelType,
       images: car.images,
       key_features: car.key_features,
+      description: car.description,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -247,6 +248,8 @@ function EditCar() {
           name="description"
           label="description"
           type="string"
+          multiline
+          rows={4}
           value={formik.values.description}
           onChange={formik.handleChange}
           error={formik.touched.key_features && Boolean(formik.errors.key_features)}
