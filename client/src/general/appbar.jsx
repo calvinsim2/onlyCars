@@ -34,7 +34,7 @@ function NavigationBar() {
       <NavLink to="/cars/" style={{ textDecoration: "none" }}>
         <Button sx={{ color: "white" }}>Rent A Car</Button>
       </NavLink>
-      <NavLink to="/cars/new" style={{ textDecoration: "none" }}>
+      <NavLink to={`/users/${user._id}`} style={{ textDecoration: "none" }}>
         <Button sx={{ color: "white" }}>List A Car</Button>
       </NavLink>
       <NavLink to={`/users/${user._id}`} style={{ textDecoration: "none" }}>
@@ -65,14 +65,14 @@ function NavigationBar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <NavLink to="/" style={{ textDecoration: "none" }}>
-              <img
-                src={"/onlycars.png"}
-                height="60px"
-                alt=""
-                style={{marginTop:"0.5em"}}
-              />
-            </NavLink>
+              <NavLink to="/" style={{ textDecoration: "none" }}>
+                <img
+                  src={"/onlycars.png"}
+                  height="60px"
+                  alt=""
+                  style={{ marginTop: "0.5em" }}
+                />
+              </NavLink>
             </Typography>
             <NavLink to="/about" style={{ textDecoration: "none" }}>
               <Button sx={{ color: "white" }}>About</Button>
