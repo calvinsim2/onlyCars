@@ -48,7 +48,9 @@ function AllCars() {
   return (
     <>
       
-      <h1>Allcars.jsx (INDEX)</h1>
+      {/* <h1>Allcars.jsx (INDEX)</h1> */}
+
+      <div style={{marginTop:"2em"}}></div>
       <NavLink to={"/"}>
       <Button variant="contained">Back to Main Page</Button>
       </NavLink>

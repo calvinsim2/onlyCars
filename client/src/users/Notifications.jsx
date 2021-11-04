@@ -50,7 +50,8 @@ export const Notifications = () => {
     
     return (
         <>
-        <h1>Notifications.jsx</h1>
+        {/* <h1>Notifications.jsx</h1> */}
+        <div style={{marginTop:"2em"}}></div>
         <h2>Loans Awaiting Confirmation:</h2>
         {fetchState === "complete" ? 
         <>
