@@ -46,7 +46,7 @@ function NavigationBar() {
               <NavLink to="/cars/" style={{ textDecoration: "none" }}>
                 <Button sx={{ color: "white" }}>Rent A Car</Button>
               </NavLink>
-              <NavLink to="/cars/new" style={{ textDecoration: "none" }}>
+              <NavLink to={`/users/${user._id}`} style={{ textDecoration: "none" }}>
                 <Button sx={{ color: "white" }}>List A Car</Button>
               </NavLink>
               <NavLink
