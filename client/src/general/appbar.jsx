@@ -65,9 +65,14 @@ function NavigationBar() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              <NavLink to="/" style={{ textDecoration: "none" }}>
-                <img src={"/onlycars.png"} width="150px" height="60px" alt="" />
-              </NavLink>
+            <NavLink to="/" style={{ textDecoration: "none" }}>
+              <img
+                src={"/onlycars.png"}
+                height="60px"
+                alt=""
+                style={{marginTop:"0.5em"}}
+              />
+            </NavLink>
             </Typography>
             <NavLink to="/about" style={{ textDecoration: "none" }}>
               <Button sx={{ color: "white" }}>About</Button>

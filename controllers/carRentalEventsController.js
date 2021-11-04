@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
 // Search by user ID
 router.get("/find/:userID", async (req, res) => {
   const {userID} = req.params;
-  const thisUserRentalEvents = await CarRentalEvents.find({$or: [{user:userID}, {original_owner:userID}]}).populate("car_rented").populate("original_owner");
+  const thisUserRentalEvents = await CarRentalEvents.find({$or: [{user:userID}, {original_owner:userID}]}).populate("car_rented").populate("original_owner").populate("user");
   res.json(thisUserRentalEvents);
 })
 

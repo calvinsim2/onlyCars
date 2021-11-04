@@ -1,10 +1,23 @@
 @import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 
+p {white-space: pre-wrap;}
 
+body {
+  background-color: #F2F3F4;
+}
 .App {
   text-align: center;
 }
 
+
+.titleimage {
+  display: flex;
+  width: 80vw;
+  margin-top: 1em;
+  align-content: center;
+  align-items: center;
+
+}
 .rowStyle {
   display: flex;
   flex-direction: row;
@@ -20,15 +33,28 @@
 .user_avatar {
   border-radius: 50%;
   width: 8vw;
+  height: 7vw;
 }
 
 .user_avatar_floating {
   border-radius: 50%;
   width: 7vw;
+  height: 7vw;
   position: absolute;
   top: 10px;
   left: 10px;
 }
+
+.centered_div {
+  display: flex;
+  width: 40vw;
+  height: 8vw;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+
   
 .login-page,
 .signup-page {
