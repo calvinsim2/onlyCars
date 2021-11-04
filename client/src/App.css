@@ -1,5 +1,7 @@
 @import "../node_modules/react-image-gallery/styles/css/image-gallery.css";
 
+p {white-space: pre-wrap;}
+
 body {
   background-color: #F2F3F4;
 }
