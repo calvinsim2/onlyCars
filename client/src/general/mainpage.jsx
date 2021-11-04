@@ -1,20 +1,15 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import { Grid, LinearProgress } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
+import { Button, Grid, LinearProgress, Typography } from "@mui/material";
+import { useEffect, useState, useContext } from "react";
+import { DataContext } from "../App";
 import axios from "axios";
 import { Box } from "@mui/system";
 import { CarCard } from "../globalComponents/CarCard";
 import { UserCard } from "../globalComponents/UserCard";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Main() {
+  const { user, setUser } = useContext(DataContext);
   const carURL = "/api/cars/";
   const userURL = "/api/users";
 
@@ -63,26 +58,42 @@ function Main() {
     <>
       <Grid container>
         <Grid item xs={12} sx={{ align: "center" }}>
-          <Typography>
+          {/* <Typography>
             Welcome to onlyCars. Check out our top picks below or click "search
             cars" to refine your search!
           </Typography>
           <NavLink to="/cars/" style={{ textDecoration: "none" }}>
             <Button variant="contained">Search Cars</Button>
-          </NavLink>
+          </NavLink> */}
+          <Box sx={{display:"flex", width:"80vw", alignContent:"center", alignItems:"center", justifyContent:"center", justifyItems:"center", mt:"1em"}}>
+          <img src="/onlycars.png" width="500px"/>
+          </Box>
+          <div style={{marginLeft:"8em"}}><h1>I want to...</h1></div>
+          <Box className="rowStyle" sx={{mt:"1em", mb: "1em"}}>
+            <Box className="centered_div">
+              <Link to="/cars/" style={{ textDecoration: 'none' }}>
+                <Button variant="contained" color="success" sx={{fontSize:"3vw", width: "13vw", height:"5vw"}}>RENT</Button>
+              </Link>
+            </Box>
+            <Box className="centered_div">
+              <Link to={`/users/${user?._id}`} style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="success" sx={{fontSize:"3vw", width: "13vw", height:"5vw"}}>LIST</Button>
+              </Link>
+            </Box>
+          </Box>
         </Grid>
-        <Typography>
+        <h1>
           <strong>Top Picks:</strong>
-        </Typography>
+        </h1>
         <Grid item container>
           <Box className="rowStyle">
             {status === "resolved" ? carsCardArrayRender : <LinearProgress />}
           </Box>
         </Grid>
 
-        <Typography>
+        <h1>
           <strong>Top Users:</strong>
-        </Typography>
+        </h1>
         <Grid item container>
           <Box className="rowStyle">
             {status === "resolved" ? userCardArrayRender : <LinearProgress />}
