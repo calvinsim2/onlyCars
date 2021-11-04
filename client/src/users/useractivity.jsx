@@ -83,8 +83,8 @@ function UserActivity() {
   };
 
   const allowUserEdit = [
-    <NavLink to={`/users/edit/${user?._id}`}>
-      <Button>Edit Account Details</Button>
+    <NavLink to={`/users/edit/${user?._id}`} style={{ textDecoration: "none" }}>
+      <Button variant="outlined">Edit Account Details</Button>
     </NavLink>,
   ];
 
@@ -110,10 +110,15 @@ function UserActivity() {
           {user?._id === thisUser?._id ? allowUserEdit : null}
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h1">{thisUser.username}</Typography>
+          <Box className="rowStyle" sx={{alignItems:"center"}}>
+            <img src={thisUser.display_picture} style={{borderRadius:"50%", width:"200px", height:"200px", margin:"2em 4em 2em 2em"}} />
+            <Box>
+              <Typography variant="h1">{thisUser.username}</Typography>
+              <Typography variant="h4">{thisUser.displayname}</Typography>
+            </Box>
+          </Box>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4">{thisUser.displayname}</Typography>
         </Grid>
         <Grid item container>
           <Grid item>{renderNewCarPage()}</Grid>
