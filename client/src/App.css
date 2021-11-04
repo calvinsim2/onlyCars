@@ -32,8 +32,8 @@ body {
 
 .user_avatar {
   border-radius: 50%;
-  width: 8vw;
-  height: 7vw;
+  width: 90px;
+  height: 90px;
 }
 
 .user_avatar_floating {

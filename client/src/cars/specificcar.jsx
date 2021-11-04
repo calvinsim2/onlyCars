@@ -90,7 +90,8 @@ const SpecificCar = () => {
   }
   return (
     <>
-      <h1>specificcar.jsx</h1>
+      {/* <h1>specificcar.jsx</h1> */}
+      <div style={{marginTop:"2em"}}></div>
       <NavLink to={"/cars"}>
         <Button variant="contained">Back to All Cars Page</Button>
       </NavLink>
