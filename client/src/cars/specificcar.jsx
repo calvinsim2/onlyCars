@@ -104,7 +104,10 @@ const SpecificCar = () => {
             
             {/* //! RIGHT PANEL */}
             <h1>Rent this Car:</h1>
-            {/* <button onClick={()=>console.log(selectedDay)}>log day</button> */}
+            {thisCar.original_owner._id === user._id
+            ?
+              <h1>This is your car!</h1>
+            :
             <Box className="colStyle" sx={{margin:"2em", alignItems:"center"}}>
               <h5>On these dates: </h5>
                 <DatePicker value={selectedDay} onChange={setSelectedDay} inputPlaceholder="Select a date" shouldHighlightWeekends minimumDate={utils().getToday() } renderFooter={() => (
@@ -135,6 +138,7 @@ const SpecificCar = () => {
               </select>
               <Button onClick={handleBook} sx={{mt:"1em"}} variant="contained">Book Now!</Button>
             </Box>
+            }
           </Box>
         </Box>
       : <LinearProgress/>
