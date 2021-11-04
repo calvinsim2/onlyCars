@@ -8,14 +8,23 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { DataContext } from "../App";
 import axios from "axios";
 import { Box } from "@mui/system";
 
 import { AdminUserCard } from "../globalComponents/AdminUserCard";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Admin() {
   const allUserURL = "/api/users";
+  const { user } = useContext(DataContext);
+
+  const history = useHistory();
+
+  if (!!user.is_admin === false) {
+    history.push("/");
+  }
 
   const [allUsers, setAllUsers] = useState([]);
   const [status, setStatus] = useState("pending");
