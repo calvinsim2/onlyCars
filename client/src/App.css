@@ -20,11 +20,13 @@
 .user_avatar {
   border-radius: 50%;
   width: 8vw;
+  height: 7vw;
 }
 
 .user_avatar_floating {
   border-radius: 50%;
   width: 7vw;
+  height: 7vw;
   position: absolute;
   top: 10px;
   left: 10px;

@@ -51,7 +51,6 @@ export const Notifications = () => {
     return (
         <>
         <h1>Notifications.jsx</h1>
-        <button onClick={() => console.log(rentalEvents)}>rentalEvents</button>
         <h2>Loans Awaiting Confirmation:</h2>
         {fetchState === "complete" ? 
         <>
