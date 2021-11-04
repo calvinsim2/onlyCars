@@ -51,7 +51,7 @@ function AllCars() {
       {/* <h1>Allcars.jsx (INDEX)</h1> */}
 
       <div style={{marginTop:"2em"}}></div>
-      <NavLink to={"/"}>
+      <NavLink to={"/"} style={{ textDecoration: "none" }}>
       <Button variant="contained">Back to Main Page</Button>
       </NavLink>
         <h1>List of All Cars:</h1>

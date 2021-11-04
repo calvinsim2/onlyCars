@@ -83,6 +83,7 @@ function App() {
               </Route>
             </Switch>
           </Box>
+          <div style={{marginBottom: "5em"}}></div>
         </BrowserRouter>
       </DataContext.Provider>
     </>
