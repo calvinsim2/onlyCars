@@ -77,7 +77,7 @@ router.delete("/:id", async (req, res) => {
       const userIDnumber = await originalOwner._id.toString();
       console.log("original owner", userIDnumber);
       const result = await Cars.findByIdAndDelete(id);
-      const user = await Users.findByIdAndUpdate( "6181e8aebfd0ebf72c10be2e" , {$pull:{cars_for_rent: id }});
+      const user = await Users.findByIdAndUpdate( userIDnumber , {$pull:{cars_for_rent: id }});
       res.json(result);
     } catch (error) {
       res.json({ error });
