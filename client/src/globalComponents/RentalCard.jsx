@@ -5,6 +5,8 @@ import {useContext} from "react";
 import { DataContext } from "../App";
 import axios from "axios"
 import { Link } from 'react-router-dom';
+import {parseISO} from "date-fns";
+import format from "date-fns/format";
 
 
 export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
@@ -105,7 +107,7 @@ export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
                 {confirmedRental ? "Loan Duration:" : "Proposed Rent Date:"}
             </Typography>
             <Typography gutterBottom variant="h7">
-                Start: {rentalEvent.start_date}
+                Start: {format(parseISO(rentalEvent.start_date), "eee, dd/MM/yyyy, xxxxx O...OOO")}
             </Typography>
             <Typography gutterBottom variant="h7">
                 End: {rentalEvent.end_date}
