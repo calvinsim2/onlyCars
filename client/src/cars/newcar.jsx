@@ -138,7 +138,7 @@ function NewCar({ addCarNow, setShowState }) {
                     fullWidth
                     id="rental_rate"
                     name="rental_rate"
-                    label="Rental Rate"
+                    label="Rental Rate ($/day)"
                     type="number"
                     value={formik.values.rental_rate}
                     onChange={formik.handleChange}
@@ -149,7 +149,7 @@ function NewCar({ addCarNow, setShowState }) {
                     fullWidth
                     id="mileage"
                     name="mileage"
-                    label="Mileage"
+                    label="Mileage (km)"
                     type="number"
                     value={formik.values.mileage}
                     onChange={formik.handleChange}
@@ -171,7 +171,7 @@ function NewCar({ addCarNow, setShowState }) {
                     fullWidth
                     id="fuel_consumption"
                     name="fuel_consumption"
-                    label="Fuel Consumption"
+                    label="Fuel Consumption (liters/100km)"
                     type="number"
                     value={formik.values.fuel_consumption}
                     onChange={formik.handleChange}
@@ -182,7 +182,7 @@ function NewCar({ addCarNow, setShowState }) {
                     fullWidth
                     id="estimated_range"
                     name="estimated_range"
-                    label="Estimated range"
+                    label="Estimated range (km)"
                     type="number"
                     value={formik.values.estimated_range}
                     onChange={formik.handleChange}
