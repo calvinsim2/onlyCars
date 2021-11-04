@@ -66,7 +66,7 @@ function NavigationBar() {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" color={!!user.is_admin ? "success" : "primary"}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               <NavLink to="/" style={{ textDecoration: "none" }}>
