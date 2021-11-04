@@ -1,18 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { useParams, Redirect } from "react-router-dom";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Grid,
-  Typography,
-  CardActions,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { DataContext } from "../App";
 import { UserCarsForRentCard } from "../globalComponents/UserCarsForRentCard";
+import NewCar from "../cars/newcar";
 
 function UserActivity() {
   const { user } = useContext(DataContext);
@@ -28,7 +22,7 @@ function UserActivity() {
   const [fetchState, setFetchState] = useState("loading");
   const [thisUser, setThisUser] = useState([]);
   const [usersCars, setUsersCars] = useState([]);
-  
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(userURL);
@@ -39,12 +33,11 @@ function UserActivity() {
     };
     fetchUser();
   }, []);
-  
 
 
-  // console.log("thisUser ", thisUser);
-  // let usersCars = thisUser.cars_for_rent;
-  // console.log("userCars", usersCars)
+  const addCar = (newCar) => {
+    setUsersCars([...usersCars, newCar]);
+  };
 
 
   const handleDelete = async (id) => {
@@ -57,7 +50,7 @@ function UserActivity() {
   const renderCarsForRent = () => {
     if (usersCars !== undefined) {
       return usersCars.map((car, i) => (
-       <UserCarsForRentCard i={i} car={car} usersCars={usersCars} handleDelete={handleDelete}/>
+        <UserCarsForRentCard key={i} i={i} car={car} usersCars={usersCars} handleDelete={handleDelete} />
       ));
     }
   };
@@ -65,22 +58,26 @@ function UserActivity() {
   return (
     <>
       <h1>这个是 UserActivity Page!</h1>
-      <Grid container>
-        <Grid item xs={12}>
-          <Typography>{thisUser.username}</Typography>
+      <div className="useractivity">
+        <Grid container>
+          <Grid item xs={12}>
+            <Typography variant="h1">{thisUser.username}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>{thisUser.displayname}</Typography>
+          </Grid>
+          <h2>Cars For Rent:</h2>
+          <Grid item container xs={12} spacing={3}>
+            {renderCarsForRent()}
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Typography>{thisUser.displayname}</Typography>
-        </Grid>
-        <h2>Cars For Rent:</h2>
-        <Grid item container xs={12} spacing={3}>
-          {renderCarsForRent()}
-        </Grid>
-      </Grid>
-      <NavLink to={"/cars/new"}>
-        <p>Want to list a new car?</p>
-      </NavLink>
-      <div className="useractivity"></div>
+        <NavLink to={"/cars/new"}>
+          <p>Want to list a new car?</p>
+        </NavLink>
+        <div hidden>
+          <NewCar addCarNow={addCar} />
+        </div>
+      </div>
     </>
   );
 }
