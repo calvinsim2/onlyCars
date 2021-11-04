@@ -27,7 +27,7 @@ function UserActivity() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(userURL);
-      console.log(res.data);
+      // console.log(res.data);
       setThisUser(res.data);
       setUsersCars(res.data.cars_for_rent);
       setFetchState("complete");

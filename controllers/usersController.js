@@ -67,6 +67,7 @@ router.post("/new", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedUserData = req.body;
+  console.log("AT BACKEND EDIT", updatedUserData.location);
   updatedUserData.password = bcrypt.hashSync(
     updatedUserData.password,
     bcrypt.genSaltSync(10)
@@ -76,5 +77,11 @@ router.put("/:id", async (req, res) => {
 });
 
 //! DESTROY
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedItem = await Users.findByIdAndDelete(id);
+  console.log(deletedItem);
+});
 
 module.exports = router;
