@@ -51,6 +51,7 @@ export const Notifications = () => {
     return (
         <>
         <h1>Notifications.jsx</h1>
+        <button onClick={() => console.log(rentalEvents)}>rentalEvents</button>
         <h2>Loans Awaiting Confirmation:</h2>
         {fetchState === "complete" ? 
         <>
@@ -71,7 +72,7 @@ export const Notifications = () => {
                 const carOwner = thisREvent?.original_owner?._id;
                 const thisIsMyCar = carOwner === user._id;
                 if (thisREvent.owner_confirmation === true) return (
-                    <RentalCard key={`${user._id}keyloan${thisREvent._id}`} rentalEvent={thisREvent} setRentalEvents={setRentalEvents}/>
+                    <RentalCard key={`${user._id}keyloan${thisREvent._id}`} rentalEvent={thisREvent} setRentalEvents={setRentalEvents} rentalEvents={rentalEvents}/>
                 )
             })}
         </Box>

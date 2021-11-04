@@ -21,6 +21,14 @@
   border-radius: 50%;
   width: 8vw;
 }
+
+.user_avatar_floating {
+  border-radius: 50%;
+  width: 7vw;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
   
 .login-page,
 .signup-page {
