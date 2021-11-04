@@ -65,7 +65,7 @@ const SpecificCar = () => {
   }
 
   const handleBook = async () => {
-    if (!(!!user._id)) alert("Please log in first to be able to book cars!");
+    if (!(!!user?._id)) alert("Please log in first to be able to book cars!");
     if (!(!!selectedDay.from)) alert("Please Select a date.");
     const fromDate = `${selectedDay.from?.month} ${selectedDay.from?.day} ${selectedDay.from?.year}`;
     const toDate = `${selectedDay.to?.month} ${selectedDay.to?.day} ${selectedDay.to?.year}`;
@@ -85,7 +85,7 @@ const SpecificCar = () => {
     const URL = "/api/carRentalEvents/new"
     const res = await axios.post(URL, newRentalEvent);
     console.log(res.data);
-    history.push(`/users/${user._id}`);
+    history.push(`/notifications`);
 
   }
   return (

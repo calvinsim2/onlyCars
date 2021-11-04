@@ -12,10 +12,6 @@ function UserActivity() {
   const { user } = useContext(DataContext);
 
 
-  if (!(!!user._id)) {
-    return <Redirect to="/login" />;
-  }
-
   const params = useParams();
 
   const userURL = `/api/users/${params.id}`;
@@ -26,10 +22,10 @@ function UserActivity() {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(userURL);
-      console.log(res.data);
+      // console.log(res.data);
       setThisUser(res.data);
       setUsersCars(res.data.cars_for_rent);
-      setFetchState("complete")
+      setFetchState("complete");
     };
     fetchUser();
   }, []);
@@ -39,27 +35,39 @@ function UserActivity() {
     setUsersCars([...usersCars, newCar]);
   };
 
-
   const handleDelete = async (id) => {
     const url = `/api/cars/${id}`;
     await axios.delete(url);
     setUsersCars(usersCars.filter((h) => h._id !== id));
-    console.log("userCars", usersCars)
+    console.log("userCars", usersCars);
   };
 
   const renderCarsForRent = () => {
     if (usersCars !== undefined) {
       return usersCars.map((car, i) => (
-        <UserCarsForRentCard key={i} i={i} car={car} usersCars={usersCars} handleDelete={handleDelete} />
+
+        <UserCarsForRentCard
+          key={i}
+          i={i}
+          car={car}
+          usersCars={usersCars}
+          handleDelete={handleDelete}
+        />
       ));
     }
   };
-
-  return (
-    <>
-      <h1>这个是 UserActivity Page!</h1>
-      <div className="useractivity">
+  if (!!user?._id === false) {
+    return <Redirect to="/login" />;
+  } else if (user?._id === thisUser?._id) {
+    return (
+      <>
+        <h1>这个是 UserActivity Page!</h1>
         <Grid container>
+          <Grid item xs={12}>
+            <NavLink to={`/users/edit/${user?._id}`}>
+              <Button>Edit Account Details</Button>
+            </NavLink>
+          </Grid>
           <Grid item xs={12}>
             <Typography variant="h1">{thisUser.username}</Typography>
           </Grid>
@@ -77,9 +85,29 @@ function UserActivity() {
         <div hidden>
           <NewCar addCarNow={addCar} />
         </div>
-      </div>
     </>
   );
+  } else {
+    return (
+      <>
+        <h1>这个是 UserActivity Page!</h1>
+        <Grid container>
+          <Grid item xs={12}></Grid>
+          <Grid item xs={12}>
+            <Typography>Username: {thisUser.username}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography>Alias: {thisUser.displayname}</Typography>
+          </Grid>
+          <h2>Cars For Rent:</h2>
+          <Grid item container xs={12} spacing={3}>
+            {renderCarsForRent()}
+          </Grid>
+        </Grid>
+        <div className="useractivity"></div>
+      </>
+    );
+  }
 }
 
 export default UserActivity;

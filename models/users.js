@@ -8,7 +8,7 @@ const usersSchema = mongoose.Schema({
   cars_for_rent: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cars" }],
   rented_cars: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cars" }],
   is_admin: { type: Boolean, required: true, default: false },
-  location: Object,
+  location: { type: Object, default: { street: "", postal: "" } },
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: "Cars" }],
 });
 

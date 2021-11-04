@@ -41,10 +41,12 @@ router.get("/:id", async (req, res) => {
 
 router.post("/new", async (req, res) => {
   const newUserData = req.body;
+
   // find db for the inserted username, to see if already exists
   const checkDuplicate = await Users.find({ username: newUserData.username });
+
   // if there ISN'T, then we can create
-  if (!checkDuplicate) {
+  if (checkDuplicate.length < 1) {
     newUserData.password = bcrypt.hashSync(
       newUserData.password,
       bcrypt.genSaltSync(10)
@@ -64,10 +66,22 @@ router.post("/new", async (req, res) => {
 //! UPDATE
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const updatedUser = await Users.findByIdAndUpdate(id, req.body);
+  const updatedUserData = req.body;
+  console.log("AT BACKEND EDIT", updatedUserData.location);
+  updatedUserData.password = bcrypt.hashSync(
+    updatedUserData.password,
+    bcrypt.genSaltSync(10)
+  );
+  const updatedUser = await Users.findByIdAndUpdate(id, updatedUserData);
   res.json(updatedUser);
 });
 
 //! DESTROY
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deletedItem = await Users.findByIdAndDelete(id);
+  console.log(deletedItem);
+});
 
 module.exports = router;
