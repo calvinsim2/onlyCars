@@ -58,13 +58,6 @@ function Main() {
     <>
       <Grid container>
         <Grid item xs={12} sx={{ align: "center" }}>
-          {/* <Typography>
-            Welcome to onlyCars. Check out our top picks below or click "search
-            cars" to refine your search!
-          </Typography>
-          <NavLink to="/cars/" style={{ textDecoration: "none" }}>
-            <Button variant="contained">Search Cars</Button>
-          </NavLink> */}
           <Box sx={{display:"flex", width:"80vw", alignContent:"center", alignItems:"center", justifyContent:"center", justifyItems:"center", mt:"1em"}}>
           <img src="/onlycars.png" width="500px"/>
           </Box>
@@ -82,23 +75,25 @@ function Main() {
             </Box>
           </Box>
         </Grid>
-        <h1>
-          <strong>Top Picks:</strong>
-        </h1>
-        <Grid item container>
-          <Box className="rowStyle">
-            {status === "resolved" ? carsCardArrayRender : <LinearProgress />}
-          </Box>
-        </Grid>
+        <Box sx={{margin:"auto"}}>
+          <h1>
+            <strong>Top Picks:</strong>
+          </h1>
+          <Grid item container>
+            <Box className="rowStyle">
+              {status === "resolved" ? carsCardArrayRender : <LinearProgress />}
+            </Box>
+          </Grid>
 
-        <h1>
-          <strong>Top Users:</strong>
-        </h1>
-        <Grid item container>
-          <Box className="rowStyle">
-            {status === "resolved" ? userCardArrayRender : <LinearProgress />}
-          </Box>
-        </Grid>
+          <h1>
+            <strong>Top Users:</strong>
+          </h1>
+          <Grid item container>
+            <Box className="rowStyle">
+              {status === "resolved" ? userCardArrayRender : <LinearProgress />}
+            </Box>
+          </Grid>
+        </Box>
       </Grid>
     </>
   );
