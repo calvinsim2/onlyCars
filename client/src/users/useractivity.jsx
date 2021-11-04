@@ -1,21 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { useParams, Redirect } from "react-router-dom";
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Grid,
-  Typography,
-  CardActions,
-} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Button } from "@mui/material";
 import axios from "axios";
 import { DataContext } from "../App";
 import { UserCarsForRentCard } from "../globalComponents/UserCarsForRentCard";
+import NewCar from "../cars/newcar";
 
 function UserActivity() {
   const { user } = useContext(DataContext);
+
 
   const params = useParams();
 
@@ -35,9 +30,10 @@ function UserActivity() {
     fetchUser();
   }, []);
 
-  // console.log("thisUser ", thisUser);
-  // let usersCars = thisUser.cars_for_rent;
-  // console.log("userCars", usersCars)
+
+  const addCar = (newCar) => {
+    setUsersCars([...usersCars, newCar]);
+  };
 
   const handleDelete = async (id) => {
     const url = `/api/cars/${id}`;
@@ -49,7 +45,9 @@ function UserActivity() {
   const renderCarsForRent = () => {
     if (usersCars !== undefined) {
       return usersCars.map((car, i) => (
+
         <UserCarsForRentCard
+          key={i}
           i={i}
           car={car}
           usersCars={usersCars}
@@ -71,7 +69,7 @@ function UserActivity() {
             </NavLink>
           </Grid>
           <Grid item xs={12}>
-            <Typography>{thisUser.username}</Typography>
+            <Typography variant="h1">{thisUser.username}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Typography>{thisUser.displayname}</Typography>
@@ -84,9 +82,11 @@ function UserActivity() {
         <NavLink to={"/cars/new"}>
           <p>Want to list a new car?</p>
         </NavLink>
-        <div className="useractivity"></div>
-      </>
-    );
+        <div hidden>
+          <NewCar addCarNow={addCar} />
+        </div>
+    </>
+  );
   } else {
     return (
       <>

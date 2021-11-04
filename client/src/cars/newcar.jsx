@@ -3,17 +3,16 @@ import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Button } from '@mui/material';
-import { TextField, Checkbox, Autocomplete } from '@mui/material';
+import { TextField, Checkbox } from '@mui/material';
 import { Grid } from '@mui/material';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useContext } from "react";
 import { DataContext } from "../App";
 
-import axios from 'axios';
 
 const URL = "/api/cars/new";
 
-function NewCar() {
+function NewCar({addCarNow}) {
 
     const { user } = useContext(DataContext);
 
@@ -30,8 +29,8 @@ function NewCar() {
             body: JSON.stringify(info)
         });
         const data = await res.json();
-
         console.log(data);
+        addCarNow(data);
     }
 
     const validationSchema = yup.object({
@@ -63,9 +62,9 @@ function NewCar() {
             .string('Enter the Fuel Type')
             .required('Fuel type is required'),
         images: yup
-            .string('Is it a manual car?'),
+            .string('Image for your vehicle'),
         key_features: yup
-            .string('Is it a manual car?'),
+            .string('Any key features?'),
 
     });
 
@@ -75,7 +74,7 @@ function NewCar() {
             model: "",
             original_owner: user?._id,
             rental_rate: "",
-            rented_days: "",
+            rented_days: 0,
             mileage: "",
             horsepower: "",
             fuel_consumption: "",
@@ -144,17 +143,6 @@ function NewCar() {
                 />
                 <TextField
                     fullWidth
-                    id="rented_days"
-                    name="rented_days"
-                    label="Rented days"
-                    type="number"
-                    value={formik.values.rented_days}
-                    onChange={formik.handleChange}
-                    error={formik.touched.rented_days && Boolean(formik.errors.rented_days)}
-                    helperText={formik.touched.rented_days && formik.errors.rented_days}
-                />
-                <TextField
-                    fullWidth
                     id="mileage"
                     name="mileage"
                     label="Mileage"
@@ -199,14 +187,13 @@ function NewCar() {
                 />
                 <label>Manual:</label>
                 <Checkbox
-                    fullWidth
                     id="manual"
                     name="manual"
                     label="Manual"
                     checked={formik.values.manual}
                     onChange={formik.handleChange}
                     error={formik.touched.manual && Boolean(formik.errors.manual)}
-                    helperText={formik.touched.manual && formik.errors.manual}
+                // helperText={formik.touched.manual && formik.errors.manual}
                 />
                 <TextField
                     fullWidth
@@ -237,7 +224,7 @@ function NewCar() {
                             margin="normal"
                             label="Fuel Type"
                             fullWidth
-                            name="city_id"
+                            name="fuelType"
                             {...params}
                         />
                     )}
@@ -264,11 +251,12 @@ function NewCar() {
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
-                {/* <NavLink to={`/cars/`}> */}
                 <Button color="primary" variant="contained" fullWidth type="submit">
                     Submit
                 </Button>
-                {/* </NavLink> */}
+                <NavLink to={`/users/${user?._id}/`}>
+                    <Button>Cancel</Button>
+                </NavLink>
             </form>
         </Grid>
     );
