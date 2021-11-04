@@ -51,13 +51,13 @@ function UserActivity() {
     if (showState !== false) {
       return (
         <Grid container>
-          <Grid item xs={12}>
-            <NewCar addCarNow={addCar} setShowState={setShowState} />
-          </Grid>
           <Grid item>
             <Button variant="outlined" onClick={handleAddNewCarClick}>
               Cancel
             </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <NewCar addCarNow={addCar} setShowState={setShowState} />
           </Grid>
         </Grid>
       );
