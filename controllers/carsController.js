@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const seedCars = require("../seedData/seedCars");
 const Cars = require("../models/cars");
-const Users = require("../models/users")
+const Users = require("../models/users");
+const CarRentalEvents = require("../models/carRentalEvents");
 
 
 //! SEED
@@ -76,9 +77,18 @@ router.delete("/:id", async (req, res) => {
       const originalOwner = await Cars.findById(id, "original_owner")
       const userIDnumber = await originalOwner._id.toString();
       console.log("original owner", userIDnumber);
-      const result = await Cars.findByIdAndDelete(id);
-      const user = await Users.findByIdAndUpdate( "6181e8aebfd0ebf72c10be2e" , {$pull:{cars_for_rent: id }});
-      res.json(result);
+      
+      const existingLoanRes = await CarRentalEvents.find({car_rented: id})
+      console.log(existingLoanRes); 
+      if (existingLoanRes.length > 0) {
+        res.send("Please close all existing loans before removing your Car from the website.");
+
+      } else {
+        const result = await Cars.findByIdAndDelete(id);
+        const user = await Users.findByIdAndUpdate( userIDnumber , {$pull:{cars_for_rent: id }});
+        res.json(result);
+      }
+
     } catch (error) {
       res.json({ error });
     }

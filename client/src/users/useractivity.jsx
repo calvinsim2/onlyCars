@@ -39,9 +39,14 @@ function UserActivity() {
 
   const handleDelete = async (id) => {
     const url = `/api/cars/${id}`;
-    await axios.delete(url);
-    setUsersCars(usersCars.filter((h) => h._id !== id));
-    console.log("userCars", usersCars);
+    const res = await axios.delete(url);
+    console.log("delete route return", res);
+    if (res.data === "Please close all existing loans before removing your Car from the website.") {
+      alert("Please close all existing loans before removing your Car from the website.")
+    } else {
+      setUsersCars(usersCars.filter((h) => h._id !== id));
+      console.log("userCars", usersCars);
+    }
   };
 
   const renderNewCarPage = () => {
