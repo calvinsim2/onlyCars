@@ -46,7 +46,7 @@ export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
 
     const unconfirmedButtons = [
         <Box className="rowStyle" sx={{m:"1em"}}>
-            { rentalEvent.user === user._id 
+            { rentalEvent.user._id === user._id 
             ?
             <Button onClick={handleDeleteEvent} variant="contained">Cancel</Button> 
             : null}
@@ -64,7 +64,7 @@ export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
 
     const confirmedButtons = [
         <Box className="rowStyle" sx={{m:"1em"}}>
-            { rentalEvent.user === user._id 
+            { rentalEvent.user._id === user._id 
             ?
             null 
             : 
@@ -104,13 +104,17 @@ export const RentalCard = ({rentalEvent, rentalEvents, setRentalEvents}) => {
                 {/* <Button onClick={()=>console.log(rentalEvent)}>log</Button>
                 <Button onClick={()=>console.log(rentalEvents)}>rentalEvents</Button> */}
             <Typography gutterBottom variant="h7">
+                {confirmedRental ? "Loaned By: " : "Loan request from: "}
+                {rentalEvent.user.displayname}
+            </Typography>
+            <Typography gutterBottom variant="h7">
                 {confirmedRental ? "Loan Duration:" : "Proposed Rent Date:"}
             </Typography>
             <Typography gutterBottom variant="h7">
-                Start: {format(parseISO(rentalEvent.start_date), "eee, dd/MM/yyyy, xxxxx O...OOO")}
+                Start: {format(parseISO(rentalEvent.start_date), "dd/MM/yyyy, p")}
             </Typography>
             <Typography gutterBottom variant="h7">
-                End: {rentalEvent.end_date}
+                End: {format(parseISO(rentalEvent.end_date), "dd/MM/yyyy, p")}
             </Typography>
             </Box>
             </CardContent>

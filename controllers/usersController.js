@@ -68,10 +68,10 @@ router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedUserData = req.body;
   console.log("AT BACKEND EDIT", updatedUserData.location);
-  updatedUserData.password = bcrypt.hashSync(
-    updatedUserData.password,
-    bcrypt.genSaltSync(10)
-  );
+  // updatedUserData.password = bcrypt.hashSync(
+  //   updatedUserData.password,
+  //   bcrypt.genSaltSync(10)
+  // );
   const updatedUser = await Users.findByIdAndUpdate(id, updatedUserData);
   res.json(updatedUser);
 });
