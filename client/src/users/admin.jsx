@@ -10,8 +10,8 @@ import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/system";
-import { CarCard } from "../globalComponents/CarCard";
-import { UserCard } from "../globalComponents/UserCard";
+
+import { AdminUserCard } from "../globalComponents/AdminUserCard";
 import { NavLink } from "react-router-dom";
 
 function Admin() {
@@ -22,14 +22,48 @@ function Admin() {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      setStatus("Loading");
+      setStatus("loading");
       const res = await axios.get(allUserURL);
       console.log("data fetched for admin is:", res.data);
       setAllUsers(res.data);
-      setStatus("Resolved");
+      setStatus("resolved");
     };
     fetchAllUsers();
+  }, []);
+
+  // delete function
+  const deleteUser = async (id) => {
+    // send delete request to backend
+    const deleteURL = `/api/users/${id}`;
+    await axios.delete(deleteURL);
+
+    // re-render page to show remaining users
+    setAllUsers(allUsers.filter((h) => h._id !== id));
+  };
+
+  const userShow = allUsers.map((element) => {
+    return (
+      <>
+        <AdminUserCard
+          userInfo={element}
+          deleteUser={deleteUser}
+          key={`userCard${element._id}`}
+        />
+      </>
+    );
   });
+
+  return (
+    <>
+      <Grid container>
+        <Grid item container>
+          <Box className="rowStyle">
+            {status === "resolved" ? userShow : <LinearProgress />}
+          </Box>
+        </Grid>
+      </Grid>
+    </>
+  );
 }
 
 export default Admin;
