@@ -30,9 +30,9 @@ function NavigationBar() {
                 <NavLink to="/" style={{ textDecoration: "none" }}>
                   <img
                     src={"/onlycars.png"}
-                    width="150px"
                     height="60px"
                     alt=""
+                    style={{marginTop:"0.5em"}}
                   />
                 </NavLink>
               </Typography>
