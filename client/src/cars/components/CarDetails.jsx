@@ -28,10 +28,10 @@ export const CarDetails = ({thisCar}) => {
             <h1>{brand} {model}</h1>
             {!!thisCar?.images?.length ? <ImageGallery items={carImages} /> : Null }
             
-            <Box>
-              <img className="user_avatar" src={ownerAvatar} alt="user_avatar" />
+            <Box sx={{margin:"1em auto 0 auto", display:"flex", justifyContent:"space-around", alignItems:"center"}}>
               <h3 style={{display:"inline"}}>{ownerName}</h3>
-              <h3 style={{display:"inline"}}>${rentalRate} per day</h3>
+              <img className="user_avatar" src={ownerAvatar} alt="user_avatar" />
+              <h2 style={{display:"inline"}}>${rentalRate} per day</h2>
             </Box>
             {/* description about car | hosted by: user */}
             <h2>About {ownerName}'s Car:</h2>

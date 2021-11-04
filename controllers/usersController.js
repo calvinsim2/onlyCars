@@ -67,6 +67,7 @@ router.post("/new", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   const updatedUserData = req.body;
+  
   const updatedUser = await Users.findByIdAndUpdate(id, updatedUserData);
   res.json(updatedUser);
 });
@@ -75,7 +76,15 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  const deletedItem = await Users.findByIdAndDelete(id);
+  console.log("at backend, ID is:", id);
+  const deletedItem = await Users.findByIdAndDelete(id, (err, deleted) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(deleted);
+      res.json(deleted);
+    }
+  });
   console.log(deletedItem);
 });
 

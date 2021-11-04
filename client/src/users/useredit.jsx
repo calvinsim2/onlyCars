@@ -22,7 +22,7 @@ function UserEdit() {
     cars_for_rent: "",
     rented_cars: "",
     is_admin: false,
-    location: "",
+    location: { street: "", postal: "" },
     reviews: ["n/a"],
   });
   //==================== FETCH AND SEND DATA PORTION ===================
@@ -56,11 +56,6 @@ function UserEdit() {
     display_picture: yup
       .string("Enter display picture")
       .required("Display picture is required"),
-    password: yup
-      .string("Enter Password")
-      .required(
-        "Enter your new password (reenter if you don't want to change.)"
-      ),
   });
 
   const formik = useFormik({
@@ -129,17 +124,6 @@ function UserEdit() {
             helperText={
               formik.touched.display_picture && formik.errors.display_picture
             }
-          />
-          <TextField
-            fullWidth
-            id="password"
-            name="password"
-            label="password"
-            type="string"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-            error={formik.touched.password && Boolean(formik.errors.password)}
-            helperText={formik.touched.password && formik.errors.password}
           />
           <TextField
             fullWidth

@@ -19,6 +19,7 @@ import NavigationBar from "./general/appbar.jsx";
 // Import user routes
 import UserActivity from "./users/useractivity.jsx";
 import UserEdit from "./users/useredit.jsx";
+import Admin from "./users/admin.jsx";
 import "./App.css";
 import { Box } from "@mui/system";
 import { Notifications } from "./users/Notifications.jsx";
@@ -37,8 +38,7 @@ function App() {
       <DataContext.Provider value={{ user, setUser }}>
         <BrowserRouter>
           <NavigationBar />
-          <Box sx={{width:"90vw", margin:"auto"}}>
-
+          <Box sx={{ width: "90vw", margin: "auto" }}>
             <Switch>
               {/* Car Related Routes */}
               <Route exact path="/cars">
@@ -56,6 +56,9 @@ function App() {
               </Route>
               <Route path="/users/:id">
                 <UserActivity />
+              </Route>
+              <Route path="/admin">
+                <Admin />
               </Route>
 
               {/* General Routes */}

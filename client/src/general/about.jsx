@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import Typography from "@mui/material/Typography";
 import { DataContext } from "../App";
+import { Button } from "@mui/material";
 
 function About() {
   const { user } = useContext(DataContext);
@@ -15,7 +16,7 @@ function About() {
     <>
       <h1>这个是 About Page!</h1>
       <NavLink to={"/"}>
-        <p>Back to Main Page</p>
+        <Button variant="contained" sx={{mb:"1em"}}>Back to Main Page</Button>
       </NavLink>
       <Typography variant="h5" sx={{ ...wordStyle }}>
         Hello {user?.username}!
