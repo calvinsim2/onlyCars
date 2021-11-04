@@ -22,7 +22,7 @@ function NavigationBar() {
   };
 
   const adminButton = [
-    <NavLink to="/admin">
+    <NavLink to="/admin" style={{ textDecoration: "none" }}>
       <Button sx={{ color: "white" }}>Show All Users</Button>
     </NavLink>,
   ];
