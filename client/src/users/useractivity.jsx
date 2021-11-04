@@ -7,6 +7,7 @@ import axios from "axios";
 import { DataContext } from "../App";
 import { UserCarsForRentCard } from "../globalComponents/UserCarsForRentCard";
 import NewCar from "../cars/newcar";
+import { Box } from "@mui/system";
 
 function UserActivity() {
   const { user } = useContext(DataContext);
@@ -18,6 +19,7 @@ function UserActivity() {
   const [fetchState, setFetchState] = useState("loading");
   const [thisUser, setThisUser] = useState([]);
   const [usersCars, setUsersCars] = useState([]);
+  const [showState, setShowState] = useState(false)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -42,6 +44,26 @@ function UserActivity() {
     console.log("userCars", usersCars);
   };
 
+  const renderNewCarPage = () => {
+    if (showState !== false) {
+      return (
+        <Grid container>
+          <Grid item xs={12}>
+            <NewCar addCarNow={addCar} setShowState={setShowState} />
+          </Grid>
+          <Grid item>
+            <Button variant="outlined" onClick={handleAddNewCarClick}>Cancel</Button>
+          </Grid>
+        </Grid>
+
+      )
+    }
+  }
+
+  const handleAddNewCarClick = () => {
+    setShowState(!showState)
+  }
+
   const renderCarsForRent = () => {
     if (usersCars !== undefined) {
       return usersCars.map((car, i) => (
@@ -56,6 +78,7 @@ function UserActivity() {
       ));
     }
   };
+
   if (!!user?._id === false) {
     return <Redirect to="/login" />;
   } else if (user?._id === thisUser?._id) {
@@ -72,21 +95,25 @@ function UserActivity() {
             <Typography variant="h1">{thisUser.username}</Typography>
           </Grid>
           <Grid item xs={12}>
-            <Typography>{thisUser.displayname}</Typography>
+            <Typography variant="h4">{thisUser.displayname}</Typography>
           </Grid>
-          <h2>Cars For Rent:</h2>
+          <Grid item container>
+            <Grid item>
+              {renderNewCarPage()}
+            </Grid>
+            <Grid item xs={12}>
+              <h2>Cars For Rent:</h2>
+            </Grid>
+            <Grid item xs={4}>
+              <Button sx={{m: 2}} variant="outlined" color="primary" onClick={handleAddNewCarClick}>Add a car</Button>
+            </Grid>
+          </Grid>
           <Grid item container xs={12} spacing={3}>
             {renderCarsForRent()}
           </Grid>
         </Grid>
-        <NavLink to={"/cars/new"}>
-          <p>Want to list a new car?</p>
-        </NavLink>
-        <div hidden>
-          <NewCar addCarNow={addCar} />
-        </div>
-    </>
-  );
+      </>
+    );
   } else {
     return (
       <>
@@ -104,7 +131,6 @@ function UserActivity() {
             {renderCarsForRent()}
           </Grid>
         </Grid>
-        <div className="useractivity"></div>
       </>
     );
   }

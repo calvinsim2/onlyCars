@@ -14,7 +14,6 @@ import AllCars from "./cars/allcars.jsx";
 import SpecificCar from "./cars/specificcar.jsx";
 import ListCars from "./cars/listcars.jsx";
 import EditCar from "./cars/editcar.jsx";
-import NewCar from "./cars/newcar.jsx";
 import NavigationBar from "./general/appbar.jsx";
 
 // Import user routes
@@ -44,9 +43,6 @@ function App() {
               {/* Car Related Routes */}
               <Route exact path="/cars">
                 <AllCars />
-              </Route>
-              <Route path="/cars/new">
-                <NewCar />
               </Route>
               <Route path="/cars/:id/edit">
                 <EditCar />

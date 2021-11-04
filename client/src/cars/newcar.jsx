@@ -2,23 +2,32 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { TextField, Checkbox } from '@mui/material';
 import { Grid } from '@mui/material';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useContext } from "react";
 import { DataContext } from "../App";
 
+import MenuItem from '@mui/material/MenuItem';
+
+
 
 const URL = "/api/cars/new";
 
-function NewCar({addCarNow}) {
+function NewCar({ addCarNow, setShowState }) {
 
     const { user } = useContext(DataContext);
 
     const history = useHistory();
 
-    const typesOfDifferentFuels = ["Petrol", "Diesel", "Electric", "Ethanol", "Hydrogen"]
+    const typesOfDifferentFuels = [
+        {id: "Petrol", value: "Petrol", name: "Petrol"}, 
+        {id: "Diesel", value: "Diesel", name: "Diesel"}, 
+        {id: "Electric", value: "Electric", name: "Electric"}, 
+        {id: "Hybrid", value: "Hybrid", name: "Hybrid"}, 
+        {id: "Hydrogen", value: "Hydrogen", name: "Hydrogen"}
+    ]
 
     const createCar = async (info) => {
         const res = await fetch(URL, {
@@ -32,6 +41,7 @@ function NewCar({addCarNow}) {
         console.log(data);
         addCarNow(data);
     }
+
 
     const validationSchema = yup.object({
         brand: yup
@@ -65,6 +75,8 @@ function NewCar({addCarNow}) {
             .string('Image for your vehicle'),
         key_features: yup
             .string('Any key features?'),
+        description: yup
+            .string('Enter a description'),
 
     });
 
@@ -83,11 +95,14 @@ function NewCar({addCarNow}) {
             fuelType: "",
             images: "",
             key_features: "",
+            description: "",
         },
         validationSchema: validationSchema,
         onSubmit: (values) => {
             createCar(values);
-            history.push(`/users/${user?._id}/`)
+            history.push(`/users/${user?._id}/`);
+            formik.resetForm();
+            setShowState(false);
         },
     });
 
@@ -95,8 +110,9 @@ function NewCar({addCarNow}) {
 
     return (
         <Grid container>
+            <Typography variant="h3">Add New Car</Typography>
             <form onSubmit={formik.handleSubmit}>
-                <TextField
+                <TextField sx={{m:1}}
                     fullWidth
                     id="brand"
                     name="brand"
@@ -107,7 +123,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.brand && Boolean(formik.errors.brand)}
                     helperText={formik.touched.brand && formik.errors.brand}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="model"
                     name="model"
@@ -118,19 +134,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.model && Boolean(formik.errors.model)}
                     helperText={formik.touched.model && formik.errors.model}
                 />
-                <TextField
-                    fullWidth
-                    id="original_owner"
-                    name="original_owner"
-                    label="Original Owner"
-                    type="string"
-                    disabled={true}
-                    value={formik.values.original_owner}
-                    onChange={formik.handleChange}
-                    error={formik.touched.original_owner && Boolean(formik.errors.original_owner)}
-                    helperText={formik.touched.original_owner && formik.errors.original_owner}
-                />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="rental_rate"
                     name="rental_rate"
@@ -141,7 +145,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.rental_rate && Boolean(formik.errors.rental_rate)}
                     helperText={formik.touched.rental_rate && formik.errors.rental_rate}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="mileage"
                     name="mileage"
@@ -152,7 +156,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.mileage && Boolean(formik.errors.mileage)}
                     helperText={formik.touched.mileage && formik.errors.mileage}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="horsepower"
                     name="horsepower"
@@ -163,7 +167,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.horsepower && Boolean(formik.errors.horsepower)}
                     helperText={formik.touched.horsepower && formik.errors.horsepower}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="fuel_consumption"
                     name="fuel_consumption"
@@ -174,7 +178,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.fuel_consumption && Boolean(formik.errors.fuel_consumption)}
                     helperText={formik.touched.fuel_consumption && formik.errors.fuel_consumption}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="estimated_range"
                     name="estimated_range"
@@ -195,41 +199,28 @@ function NewCar({addCarNow}) {
                     error={formik.touched.manual && Boolean(formik.errors.manual)}
                 // helperText={formik.touched.manual && formik.errors.manual}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="fuelType"
                     name="fuelType"
                     label="Fuel Type"
-                    type="string"
+                    select
                     value={formik.values.fuelType}
                     onChange={formik.handleChange}
                     error={formik.touched.fuelType && Boolean(formik.errors.fuelType)}
                     helperText={formik.touched.fuelType && formik.errors.fuelType}
-                />
-                {/* <Autocomplete
-                    id="fuelType"
-                    name="fuelType"
-                    options={typesOfDifferentFuels}
-                    getOptionLabel={option => option.name}
-                    style={{ width: 300 }}
-                    onChange={(e, value) => {
-                        console.log(value);
-                        setFieldValue(
-                            "Fuel",
-                            value !== null ? value : initialValues.city_id
-                        );
-                    }}
-                    renderInput={params => (
-                        <TextField
-                            margin="normal"
-                            label="Fuel Type"
-                            fullWidth
-                            name="fuelType"
-                            {...params}
-                        />
-                    )}
-                /> */}
-                <TextField
+                >
+                    <MenuItem key={""} value={""}>
+                        Select a fuel type:
+                    </MenuItem>
+                    {typesOfDifferentFuels.map((option) => (
+                        <MenuItem key={option.id} value={option.id}>
+                            {option.name}
+                        </MenuItem>
+                    ))}
+                </TextField>
+
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="images"
                     name="images"
@@ -240,7 +231,7 @@ function NewCar({addCarNow}) {
                     error={formik.touched.images && Boolean(formik.errors.images)}
                     helperText={formik.touched.images && formik.errors.images}
                 />
-                <TextField
+                <TextField sx={{m: 1}}
                     fullWidth
                     id="key_features"
                     name="key_features"
@@ -251,12 +242,20 @@ function NewCar({addCarNow}) {
                     error={formik.touched.key_features && Boolean(formik.errors.key_features)}
                     helperText={formik.touched.key_features && formik.errors.key_features}
                 />
-                <Button color="primary" variant="contained" fullWidth type="submit">
+                <TextField sx={{m: 1}}
+                    fullWidth
+                    id="description"
+                    name="description"
+                    label="description"
+                    type="string"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    error={formik.touched.key_features && Boolean(formik.errors.key_features)}
+                    helperText={formik.touched.key_features && formik.errors.key_features}
+                />
+                <Button sx={{m: 1}} color="primary" variant="contained" fullWidth type="submit">
                     Submit
                 </Button>
-                <NavLink to={`/users/${user?._id}/`}>
-                    <Button>Cancel</Button>
-                </NavLink>
             </form>
         </Grid>
     );
