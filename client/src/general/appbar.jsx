@@ -20,7 +20,7 @@ function NavigationBar() {
     setUser();
   };
 
-  if ((!!user._id)) {
+  if (!!user?._id === true) {
     return (
       <>
         <Box sx={{ flexGrow: 1 }}>
@@ -49,7 +49,10 @@ function NavigationBar() {
               <NavLink to="/cars/new" style={{ textDecoration: "none" }}>
                 <Button sx={{ color: "white" }}>List A Car</Button>
               </NavLink>
-              <NavLink to={`/users/${user._id}`} style={{ textDecoration: "none" }}>
+              <NavLink
+                to={`/users/${user._id}`}
+                style={{ textDecoration: "none" }}
+              >
                 <Button sx={{ color: "white" }}>My Account</Button>
               </NavLink>
               <NavLink to="/login" style={{ textDecoration: "none" }}>
