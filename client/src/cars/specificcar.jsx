@@ -3,7 +3,7 @@ import { NavLink, useParams, useHistory } from "react-router-dom";
 import axios from "axios"
 import { useEffect, useState, useRef, useContext } from "react";
 import { Box } from "@mui/system";
-import { Button,LinearProgress, Typography } from "@mui/material";
+import { Button,LinearProgress, MenuItem, Select, Typography } from "@mui/material";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import DatePicker, { utils } from 'react-modern-calendar-datepicker';
 import { seedTime } from "../seeds/seedTime";
@@ -88,6 +88,7 @@ const SpecificCar = () => {
     history.push(`/notifications`);
 
   }
+
   return (
     <>
       {/* <h1>specificcar.jsx</h1> */}
@@ -130,13 +131,20 @@ const SpecificCar = () => {
               )}/>
               <Typography variant="caption" display="block">You can select a range of dates.</Typography>
               <h5>Starting at: </h5>
-              <select className="DatePicker__input" value={selectedTime} onChange={selectChange}>
+              {/* <select className="DatePicker__input"  value={selectedTime} onChange={selectChange}>
                 {seedTime.map((timeString) => {
                   return (
                     <option key={`seedTime${timeString}`} value={timeString}>{timeString}</option>
                   )
                 })}
-              </select>
+              </select> */}
+              <Select onChange={selectChange} value={selectedTime} id="time-select" sx={{width:"13em", backgroundColor:"white"}}>
+                {seedTime.map((timeString) => {
+                  return (
+                    <MenuItem key={`seedTime${timeString}`} value={timeString}>{timeString}</MenuItem>
+                  )
+              })}
+              </Select>
               <Button onClick={handleBook} sx={{mt:"1em"}} variant="contained">Book Now!</Button>
             </Box>
             }
